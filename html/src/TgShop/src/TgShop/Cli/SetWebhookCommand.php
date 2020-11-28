@@ -8,9 +8,10 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use TgShop\BotProviderInterface;
-use TgShop\Command\SetWebhookCommand;
+use TgShop\Command\DeleteWebhook;
+use TgShop\Command\SetWebhook;
 
-class RegisterWebhookCommand extends Command
+class SetWebhookCommand extends Command
 {
     protected BotProviderInterface $botProvider;
 
@@ -42,7 +43,8 @@ class RegisterWebhookCommand extends Command
 
         $botId = $input->getArgument('bot_id');
 
-        $command = new SetWebhookCommand($uri);
+        $deleteWebhookCommand = new DeleteWebhook();
+        $setWebhookCommand    = new SetWebhook($uri);
 
         $bot = $this->botProvider->getBot($botId);
 
@@ -50,7 +52,8 @@ class RegisterWebhookCommand extends Command
             return 0;
         }
 
-        $bot->send($command);
+        $bot->send($deleteWebhookCommand);
+        $bot->send($setWebhookCommand);
 
         return 0;
     }

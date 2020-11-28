@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace TgShop;
 
-use TgShop\Cli\RegisterWebhookCommand;
+use TgShop\Cli\SendMessageCommand;
+use TgShop\Cli\SetWebhookCommand;
 use TgShop\Service\Bot;
 use TgShop\Service\BotFactory;
 use TgShop\Transport\HttpClient;
@@ -16,7 +17,8 @@ class ConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'enabled_commands' => [
-                RegisterWebhookCommand::class
+                SetWebhookCommand::class,
+                SendMessageCommand::class
             ]
         ];
     }

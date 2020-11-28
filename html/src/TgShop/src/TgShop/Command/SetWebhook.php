@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TgShop\Command;
 
-class SetWebhookCommand extends Command implements CommandInterface
+class SetWebhook extends Command implements CommandInterface
 {
     protected static string $uri = 'setWebhook';
 

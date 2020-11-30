@@ -13,41 +13,76 @@ class SendMessage extends Command implements CommandInterface
 
     protected string  $text;
 
-    protected ?string $parseMode;
+    protected ?string $parseMode = null;
 
-    protected ?array  $entities;
+    protected ?array  $entities = null;
 
-    protected ?bool   $disableWebPagePreview;
+    protected ?bool   $disableWebPagePreview = null;
 
-    protected ?bool   $disableNotification;
+    protected ?bool   $disableNotification = null;
 
-    protected ?int    $replyToMessageId;
+    protected ?int    $replyToMessageId = null;
 
-    protected ?bool   $allowSendingWithoutReply;
+    protected ?bool   $allowSendingWithoutReply = null;
 
     /** @var InlineKeyboardMarkup|null  */
-    protected         $replyMarkup;
+    protected         $replyMarkup = null;
 
     public function __construct(
         int $chatId,
-        string $text,
-        ?string $parseMode = null,
-        ?array $entities = null,
-        ?bool $disableWebPagePreview = null,
-        ?bool $disableNotification = null,
-        ?int $replyToMessageId = null,
-        ?bool $allowSendingWithoutReply = null,
-        $replyMarkup = null
+        string $text
     ) {
-        $this->chatId                   = $chatId;
-        $this->text                     = $text;
-        $this->parseMode                = $parseMode;
-        $this->entities                 = $entities;
-        $this->disableWebPagePreview    = $disableWebPagePreview;
-        $this->disableNotification      = $disableNotification;
-        $this->replyToMessageId         = $replyToMessageId;
+        $this->chatId = $chatId;
+        $this->text   = $text;
+    }
+
+    public function setParseMode(string $parseMode): self
+    {
+        $this->parseMode = $parseMode;
+
+        return $this;
+    }
+
+    public function setEntities(array $entities): self
+    {
+        $this->entities = $entities;
+
+        return $this;
+    }
+
+    public function setDisableWebPagePreview(bool $disableWebPagePreview): self
+    {
+        $this->disableWebPagePreview = $disableWebPagePreview;
+
+        return $this;
+    }
+
+    public function setDisableNotification(bool $disableNotification): self
+    {
+        $this->disableNotification = $disableNotification;
+
+        return $this;
+    }
+
+    public function setReplyToMessageId(int $replyToMessageId): self
+    {
+        $this->replyToMessageId = $replyToMessageId;
+
+        return $this;
+    }
+
+    public function setAllowSendingWithoutReply(bool $allowSendingWithoutReply): self
+    {
         $this->allowSendingWithoutReply = $allowSendingWithoutReply;
-        $this->replyMarkup              = $replyMarkup;
+
+        return $this;
+    }
+
+    public function setReplyMarkup(InlineKeyboardMarkup $replyMarkup): self
+    {
+        $this->replyMarkup = $replyMarkup;
+
+        return $this;
     }
 
     public function format(): array

@@ -53,26 +53,16 @@ class SendMessageCommand extends Command
         $inlineKeyboard = (new InlineKeyboardMarkup())
             ->addRow(
                 (new InlineKeyboardRow())
-                    ->addButton(new InlineKeyboardButton('test1 row1', 'http://google.com'))
-                    ->addButton(new InlineKeyboardButton('test2 row1', 'http://google.com'))
+                    ->addButton((new InlineKeyboardButton('test1 row1'))->setCallbackData('callback_data'))
+                    ->addButton((new InlineKeyboardButton('test2 row1'))->setUrl('http://google.com'))
             )
             ->addRow(
                 (new InlineKeyboardRow())
-                    ->addButton(new InlineKeyboardButton('test1 row2', 'http://google.com'))
-                    ->addButton(new InlineKeyboardButton('test2 row2', 'http://google.com'))
+                    ->addButton((new InlineKeyboardButton('test1 row2'))->setUrl('http://google.com'))
+                    ->addButton((new InlineKeyboardButton('test2 row2'))->setUrl('http://google.com'))
             );
 
-        $sendMessageCommand = new SendMessage(
-            (int) $chatId,
-            $text,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            $inlineKeyboard,
-        );
+        $sendMessageCommand = (new SendMessage((int) $chatId, $text))->setReplyMarkup($inlineKeyboard);
 
         $bot = $this->botProvider->getBot($botId);
 

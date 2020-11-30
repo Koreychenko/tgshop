@@ -5,23 +5,35 @@ namespace TgShop\Dto;
 
 class Chat
 {
-    protected int    $id;
+    protected int     $id;
 
-    protected string $type;
+    protected string  $type;
 
-    protected ?string $firstName;
+    protected ?string $firstName = null;
 
-    protected ?string $lastName;
+    protected ?string $lastName  = null;
 
-    protected ?string $username;
+    protected ?string $username  = null;
 
-    protected function __construct(int $id, string $type, ?string $firstName, ?string $lastName, ?string $username)
+    protected function __construct(int $id, string $type)
     {
-        $this->id        = $id;
-        $this->type      = $type;
+        $this->id   = $id;
+        $this->type = $type;
+    }
+
+    public function setFirstName(string $firstName): void
+    {
         $this->firstName = $firstName;
-        $this->lastName  = $lastName;
-        $this->username  = $username;
+    }
+
+    public function setLastName(string $lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
     }
 
     public function getId(): int
@@ -51,12 +63,23 @@ class Chat
 
     public static function createFromArray($array)
     {
-        return new static(
+        $chat = new static(
             $array['id'],
-            $array['type'],
-            array_key_exists('first_name', $array) ? $array['first_name'] : null,
-            array_key_exists('last_name', $array) ? $array['last_name'] : null,
-            array_key_exists('username', $array) ? $array['username'] : null
+            $array['type']
         );
+
+        if (array_key_exists('first_name', $array)) {
+            $chat->setFirstName($array['first_name']);
+        }
+
+        if (array_key_exists('last_name', $array)) {
+            $chat->setLastName($array['last_name']);
+        }
+
+        if (array_key_exists('username', $array)) {
+            $chat->setUsername($array['username']);
+        }
+
+        return $chat;
     }
 }

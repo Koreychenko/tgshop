@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace TgShop\Command\Element;
 
+use InvalidArgumentException;
+use RuntimeException;
+
 class InlineKeyboardButton
 {
     protected string $text;
@@ -14,25 +17,57 @@ class InlineKeyboardButton
     protected ?bool $pay = null;
 
     public function __construct(
-        string $text,
-        ?string $url = null,
-        ?string $loginUrl = null,
-        ?string $callbackData = null,
-        ?string $switchInlineQuery = null,
-        ?string $switchInlineQueryCurrentChat = null,
-        ?bool $pay = null
+        string $text
     ) {
-        $this->text                         = $text;
-        $this->url                          = $url;
-        $this->loginUrl                     = $loginUrl;
-        $this->callbackData                 = $callbackData;
-        $this->switchInlineQuery            = $switchInlineQuery;
+        $this->text = $text;
+    }
+
+    public function setUrl(string $url): self
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    public function setLoginUrl(string $loginUrl): self
+    {
+        $this->loginUrl = $loginUrl;
+
+        return $this;
+    }
+
+    public function setCallbackData(string $callbackData): self
+    {
+        $this->callbackData = $callbackData;
+
+        return $this;
+    }
+
+    public function setSwitchInlineQuery(string $switchInlineQuery): self
+    {
+        $this->switchInlineQuery = $switchInlineQuery;
+
+        return $this;
+    }
+
+    public function setSwitchInlineQueryCurrentChat(string $switchInlineQueryCurrentChat): self
+    {
         $this->switchInlineQueryCurrentChat = $switchInlineQueryCurrentChat;
-        $this->pay                          = $pay;
+
+        return $this;
+    }
+
+    public function setPay(bool $pay): self
+    {
+        $this->pay = $pay;
+
+        return $this;
     }
 
     public function format()
     {
+        $this->checkOptions();
+
         $element = [
             'text' => $this->text,
         ];
@@ -46,6 +81,10 @@ class InlineKeyboardButton
         }
 
         if ($this->callbackData) {
+            if (mb_strlen($this->callbackData) > 64) {
+                throw new RuntimeException('Too long callback data line. Only 64 bytes allowed');
+            }
+
             $element['callback_data'] = $this->callbackData;
         }
 
@@ -62,5 +101,19 @@ class InlineKeyboardButton
         }
 
         return $element;
+    }
+
+    private function checkOptions(): void
+    {
+        if (!(
+            ($this->url)
+            || ($this->loginUrl)
+            || ($this->callbackData)
+            || ($this->switchInlineQuery)
+            || ($this->switchInlineQueryCurrentChat)
+            || ($this->pay)
+        )) {
+            throw new InvalidArgumentException('You must use exactly one of the optional fields');
+        }
     }
 }

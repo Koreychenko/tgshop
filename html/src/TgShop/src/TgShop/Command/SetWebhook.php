@@ -18,17 +18,37 @@ class SetWebhook extends Command implements CommandInterface
     protected ?array  $allowedUpdates = null;
 
     public function __construct(
-        string $url,
-        ?string $certificate = null,
-        ?string $ipAddress = null,
-        ?int $maxConnections = null,
-        ?array $allowedUpdates = null
+        string $url
     ) {
-        $this->url            = $url;
-        $this->certificate    = $certificate;
-        $this->ipAddress      = $ipAddress;
+        $this->url = $url;
+    }
+
+    public function setCertificate(string $certificate): self
+    {
+        $this->certificate = $certificate;
+
+        return $this;
+    }
+
+    public function setIpAddress(string $ipAddress): self
+    {
+        $this->ipAddress = $ipAddress;
+
+        return $this;
+    }
+
+    public function setMaxConnections(int $maxConnections): self
+    {
         $this->maxConnections = $maxConnections;
+
+        return $this;
+    }
+
+    public function setAllowedUpdates(array $allowedUpdates): self
+    {
         $this->allowedUpdates = $allowedUpdates;
+
+        return $this;
     }
 
     public function format(): array

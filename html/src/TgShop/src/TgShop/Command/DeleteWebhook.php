@@ -9,10 +9,11 @@ class DeleteWebhook extends Command implements CommandInterface
 
     protected ?bool $dropPendingUpdates = null;
 
-    public function __construct(
-        ?bool $dropPendingUpdates = null
-    ) {
+    public function setDropPendingUpdates(bool $dropPendingUpdates): self
+    {
         $this->dropPendingUpdates = $dropPendingUpdates;
+
+        return $this;
     }
 
     public function format(): array

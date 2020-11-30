@@ -23,41 +23,79 @@ class User
 
     private int       $id;
 
+    public function setLastName(string $lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+    public function setUserName(string $userName): void
+    {
+        $this->userName = $userName;
+    }
+
+    public function setLanguageCode(string $languageCode): void
+    {
+        $this->languageCode = $languageCode;
+    }
+
+    public function setCanJoinGroups(bool $canJoinGroups): void
+    {
+        $this->canJoinGroups = $canJoinGroups;
+    }
+
+    public function setCanReadAllGroupMessages(bool $canReadAllGroupMessages): void
+    {
+        $this->canReadAllGroupMessages = $canReadAllGroupMessages;
+    }
+
+    public function setSupportsInlineQueries(bool $supportsInlineQueries): void
+    {
+        $this->supportsInlineQueries = $supportsInlineQueries;
+    }
+
     protected function __construct(
         int $id,
         bool $isBot,
-        string $firstName,
-        ?string $lastName,
-        ?string $userName,
-        ?string $languageCode,
-        ?bool $canJoinGroups,
-        ?bool $canReadAllGroupMessages,
-        ?bool $supportsInlineQueries
+        string $firstName
     ) {
-        $this->id                      = $id;
-        $this->bot                     = $isBot;
-        $this->firstName               = $firstName;
-        $this->lastName                = $lastName;
-        $this->userName                = $userName;
-        $this->languageCode            = $languageCode;
-        $this->canJoinGroups           = $canJoinGroups;
-        $this->canReadAllGroupMessages = $canReadAllGroupMessages;
-        $this->supportsInlineQueries   = $supportsInlineQueries;
+        $this->id        = $id;
+        $this->bot       = $isBot;
+        $this->firstName = $firstName;
     }
 
     public static function createFromArray($array)
     {
-        return new static(
+        $user = new static(
             $array['id'],
             $array['is_bot'],
-            $array['first_name'],
-            array_key_exists('last_name', $array) ? $array['last_name'] : null,
-            array_key_exists('username', $array) ? $array['username'] : null,
-            array_key_exists('language_code', $array) ? $array['language_code'] : null,
-            array_key_exists('can_join_groups', $array) ? $array['can_join_groups'] : null,
-            array_key_exists('can_read_all_group_messages', $array) ? $array['can_read_all_group_messages'] : null,
-            array_key_exists('supports_inline_queries', $array) ? $array['supports_inline_queries'] : null,
+            $array['first_name']
         );
+
+        if (array_key_exists('last_name', $array)) {
+            $user->setLastName($array['last_name']);
+        }
+
+        if (array_key_exists('username', $array)) {
+            $user->setUserName($array['username']);
+        }
+
+        if (array_key_exists('language_code', $array)) {
+            $user->setLanguageCode($array['language_code']);
+        }
+
+        if (array_key_exists('can_join_groups', $array)) {
+            $user->setCanJoinGroups($array['can_join_groups']);
+        }
+
+        if (array_key_exists('can_read_all_group_messages', $array)) {
+            $user->setCanReadAllGroupMessages($array['can_read_all_group_messages']);
+        }
+
+        if (array_key_exists('supports_inline_queries', $array)) {
+            $user->setSupportsInlineQueries($array['supports_inline_queries']);
+        }
+
+        return $user;
     }
 
     public function getCanJoinGroups(): ?bool

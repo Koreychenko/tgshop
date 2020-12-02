@@ -11,6 +11,8 @@ use App\Handler\UpdateHandler;
 use App\Handler\UpdateHandlerFactory;
 use App\Middleware\CheckTokenMiddleware;
 use App\Middleware\CheckTokenMiddlewareFactory;
+use App\Processor\Handler\CallbackQueryHandler;
+use App\Processor\Handler\HelloStringHandler;
 use App\Processor\Handler\StartCommandHandler;
 use App\Processor\Handler\StartCommandHandlerFactory;
 use App\Service\MainBotProvider;
@@ -34,6 +36,10 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
+            'invokables' => [
+                HelloStringHandler::class,
+                CallbackQueryHandler::class,
+            ],
             'factories' => [
                 UpdateHandler::class                           => UpdateHandlerFactory::class,
                 CheckTokenMiddleware::class                    => CheckTokenMiddlewareFactory::class,

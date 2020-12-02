@@ -52,14 +52,14 @@ class Request implements RequestInterface
 
     public function getParameter(string $parameterName)
     {
-        if (!$this->arguments) {
+        if (!$this->parameters) {
             return null;
         }
 
-        if (!array_key_exists($parameterName, $this->arguments)) {
-            return $this->arguments[$parameterName];
+        if (!array_key_exists($parameterName, $this->parameters)) {
+            return null;
         }
 
-        return null;
+        return $this->parameters[$parameterName];
     }
 }

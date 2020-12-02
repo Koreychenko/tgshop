@@ -40,6 +40,10 @@ class UpdateHandler implements RequestHandlerInterface
 
             $commands = $this->router->handle($update);
 
+            if (!is_array($commands)) {
+                $commands = [$commands];
+            }
+
             if ($commands) {
                 foreach ($commands as $command) {
                     $this->bot->send($command);

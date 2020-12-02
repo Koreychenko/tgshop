@@ -53,7 +53,7 @@ class SendMessageCommand extends Command
         $inlineKeyboard = (new InlineKeyboardMarkup())
             ->addRow(
                 (new InlineKeyboardRow())
-                    ->addButton((new InlineKeyboardButton('test1 row1'))->setCallbackData('callback_data'))
+                    ->addButton((new InlineKeyboardButton('test1 row1'))->setCallbackData('callback_data?param1=1&param2=2'))
                     ->addButton((new InlineKeyboardButton('test2 row1'))->setUrl('http://google.com'))
             )
             ->addRow(

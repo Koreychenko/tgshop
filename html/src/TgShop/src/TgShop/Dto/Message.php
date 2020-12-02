@@ -23,7 +23,7 @@ class Message
     /**
      * @return MessageEntity[]
      */
-    public function getEntities(): array
+    public function getEntities(): ?array
     {
         return $this->entities;
     }

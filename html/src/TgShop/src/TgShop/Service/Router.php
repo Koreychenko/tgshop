@@ -41,8 +41,14 @@ class Router
 
             if ($routes) {
                 $query = parse_url($update->getCallbackQuery()->getData(), PHP_URL_QUERY);
+                if ($query) {
+                    $queryParams = [];
+                    parse_str($query, $queryParams);
 
-                $request->setParameters($query);
+                    if (!empty($queryParams)) {
+                        $request->setParameters($queryParams);
+                    }
+                }
             }
         }
 
@@ -90,6 +96,7 @@ class Router
 
     private function getRouteForString(Update $update): ?array
     {
+        $this->logger->error('Start finding route for string');
         if (empty($this->routeConfiguration->getStrings())) {
             return null;
         }
@@ -109,6 +116,7 @@ class Router
 
     private function getRouteForQuery(Update $update): ?array
     {
+        $this->logger->error('Start finding route for query');
         if (empty($this->routeConfiguration->getQueries())) {
             return null;
         }
@@ -121,6 +129,8 @@ class Router
 
         $path = parse_url($data, PHP_URL_PATH);
 
+        $this->logger->error(sprintf('Found callback query path >>%s<<', $path));
+
         $routes = $this->routeConfiguration->getQueryRoutes($path);
 
         if ($routes) {
@@ -132,6 +142,7 @@ class Router
 
     protected function processRequest(array $routes, Request $request)
     {
+        $result = null;
         foreach ($routes as $route) {
             if ($route instanceof MiddlewareInterface) {
                 $result = $route->process($request);

@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
+use App\Handler\ClientBotHandlerFactory;
 use App\Handler\UpdateHandler;
+use App\Handler\MainBotHandlerFactory;
 use App\Middleware\CheckTokenMiddleware;
+use App\Middleware\ExtractStoreParametersMiddleware;
 use Mezzio\Application;
 use Mezzio\MiddlewareFactory;
 use Psr\Container\ContainerInterface;
@@ -26,8 +29,13 @@ use Psr\Container\ContainerInterface;
  * $app->route('/contact', App\Handler\ContactHandler::class, ['GET', 'POST', ...], 'contact');
  */
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
-    $app->post('/update/:token',[
+    $app->post('/update/mainbot/:token', [
         CheckTokenMiddleware::class,
-        UpdateHandler::class
+        MainBotHandlerFactory::SERVICE_NAME
+    ]);
+
+    $app->post('/update/store/:token', [
+        ExtractStoreParametersMiddleware::class,
+        ClientBotHandlerFactory::SERVICE_NAME
     ]);
 };

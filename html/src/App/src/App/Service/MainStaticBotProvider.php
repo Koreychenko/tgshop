@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use TgShop\BotProviderInterface;
+use TgShop\StaticBotProviderInterface;
 use TgShop\Service\Bot;
 
-class MainBotProvider implements BotProviderInterface
+class MainStaticBotProvider implements StaticBotProviderInterface
 {
     protected string $token;
 
@@ -18,7 +18,7 @@ class MainBotProvider implements BotProviderInterface
         $this->bot   = $bot;
     }
 
-    public function getBot(string $botId): ?Bot
+    public function getBot(?string $botId = null): ?Bot
     {
         $this->bot->setToken($this->token);
 

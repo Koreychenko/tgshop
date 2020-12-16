@@ -1,0 +1,122 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Entity;
+
+class User
+{
+    private int     $id;
+
+    private int     $telegramId;
+
+    private bool    $bot;
+
+    private string  $firstName;
+
+    private ?int    $languageCode            = null;
+
+    private ?string $lastName                = null;
+
+    private ?string $userName                = null;
+
+    private ?bool   $canJoinGroups           = null;
+
+    private ?bool   $canReadAllGroupMessages = null;
+
+    private ?bool   $supportsInlineQueries   = null;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getTelegramId(): int
+    {
+        return $this->telegramId;
+    }
+
+    public function setTelegramId(int $telegramId): void
+    {
+        $this->telegramId = $telegramId;
+    }
+
+    public function isBot(): bool
+    {
+        return $this->bot;
+    }
+
+    public function setBot(bool $bot): void
+    {
+        $this->bot = $bot;
+    }
+
+    public function getFirstName(): string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): void
+    {
+        $this->firstName = $firstName;
+    }
+
+    public function getLanguageCode(): ?int
+    {
+        return $this->languageCode;
+    }
+
+    public function setLanguageCode(?int $languageCode): void
+    {
+        $this->languageCode = $languageCode;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(?string $lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+    public function getUserName(): ?string
+    {
+        return $this->userName;
+    }
+
+    public function setUserName(?string $userName): void
+    {
+        $this->userName = $userName;
+    }
+
+    public function getCanJoinGroups(): ?bool
+    {
+        return $this->canJoinGroups;
+    }
+
+    public function setCanJoinGroups(?bool $canJoinGroups): void
+    {
+        $this->canJoinGroups = $canJoinGroups;
+    }
+
+    public function getCanReadAllGroupMessages(): ?bool
+    {
+        return $this->canReadAllGroupMessages;
+    }
+
+    public function setCanReadAllGroupMessages(?bool $canReadAllGroupMessages): void
+    {
+        $this->canReadAllGroupMessages = $canReadAllGroupMessages;
+    }
+
+    public function getSupportsInlineQueries(): ?bool
+    {
+        return $this->supportsInlineQueries;
+    }
+
+    public function setSupportsInlineQueries(?bool $supportsInlineQueries): void
+    {
+        $this->supportsInlineQueries = $supportsInlineQueries;
+    }
+}

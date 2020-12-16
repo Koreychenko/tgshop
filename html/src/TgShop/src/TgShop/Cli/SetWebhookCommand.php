@@ -7,15 +7,15 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use TgShop\BotProviderInterface;
+use TgShop\StaticBotProviderInterface;
 use TgShop\Command\DeleteWebhook;
 use TgShop\Command\SetWebhook;
 
 class SetWebhookCommand extends Command
 {
-    protected BotProviderInterface $botProvider;
+    protected StaticBotProviderInterface $botProvider;
 
-    public function __construct(BotProviderInterface $botProvider)
+    public function __construct(StaticBotProviderInterface $botProvider)
     {
         $this->botProvider = $botProvider;
 

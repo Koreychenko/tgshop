@@ -18,6 +18,16 @@ class Request implements RequestInterface
         $this->update     = $update;
     }
 
+    public function getArguments(): ?array
+    {
+        return $this->arguments;
+    }
+
+    public function getParameters(): ?array
+    {
+        return $this->parameters;
+    }
+
     public function getUpdate(): Update
     {
         return $this->update;
@@ -38,11 +48,16 @@ class Request implements RequestInterface
             return null;
         }
 
-        if (!array_key_exists($argumentName, $this->arguments)) {
+        if (array_key_exists($argumentName, $this->arguments)) {
             return $this->arguments[$argumentName];
         }
 
         return null;
+    }
+
+    public function setArguments(?array $arguments): void
+    {
+        $this->arguments = $arguments;
     }
 
     public function setParameters(array $parameters)

@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace App\Processor\Handler;
 
+use App\Element\Keyboard;
 use Psr\Log\LoggerInterface;
 use TgShop\Command\SendMessage;
 use TgShop\Http\HandlerInterface;
 use TgShop\Http\RequestInterface;
+use TgShop\Model\User;
 
 class StartCommandHandler implements HandlerInterface
 {
@@ -19,10 +21,9 @@ class StartCommandHandler implements HandlerInterface
 
     public function handle(RequestInterface $request)
     {
-        $userId = $request->getUpdate()->getMessage()->getFrom()->getId();
+        /** @var User $user */
+        $user = $request->getArgument(User::class);
 
-        $this->logger->error('Start command handler', ['request' => $request]);
-
-        return new SendMessage($userId, 'Hello, darling');
+        return (new SendMessage($user->getTelegramId(), 'Hello, darling'))->setReplyMarkup(Keyboard::getMainKeyboard());
     }
 }

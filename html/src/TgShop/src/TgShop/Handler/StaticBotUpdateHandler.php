@@ -1,26 +1,25 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Handler;
+namespace TgShop\Handler;
 
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Log\LoggerInterface;
-use TgShop\Command\SendMessage;
 use TgShop\Dto\Update;
 use TgShop\Service\Bot;
 use TgShop\Service\Router;
 use Throwable;
 
-class UpdateHandler implements RequestHandlerInterface
+class StaticBotUpdateHandler implements RequestHandlerInterface
 {
     protected LoggerInterface $logger;
 
-    protected Bot $bot;
+    protected Bot             $bot;
 
-    protected Router $router;
+    protected Router          $router;
 
     public function __construct(Bot $bot, Router $router, LoggerInterface $logger)
     {
@@ -40,13 +39,15 @@ class UpdateHandler implements RequestHandlerInterface
 
             $commands = $this->router->handle($update);
 
-            if (!is_array($commands)) {
-                $commands = [$commands];
-            }
-
             if ($commands) {
-                foreach ($commands as $command) {
-                    $this->bot->send($command);
+                if (!is_array($commands)) {
+                    $commands = [$commands];
+                }
+
+                if ($commands) {
+                    foreach ($commands as $command) {
+                        $this->bot->send($command);
+                    }
                 }
             }
         } catch (Throwable $exception) {

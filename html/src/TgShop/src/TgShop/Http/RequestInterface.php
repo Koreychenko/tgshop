@@ -11,7 +11,7 @@ interface RequestInterface
 
     public function setArgument(string $argumentName, $argument);
 
-    public function getArgument(string $parameterName);
+    public function getArgument(string $argumentName);
 
     public function getParameter(string $parameterName);
 }

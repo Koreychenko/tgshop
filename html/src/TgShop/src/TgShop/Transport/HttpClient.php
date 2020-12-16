@@ -16,8 +16,12 @@ class HttpClient
 
     public function send(string $uri, array $data): void
     {
-        $this->client->post($uri, [
-            'json' => $data,
-        ]);
+        if (!array_key_exists('multipart', $data)) {
+            $data = [
+                'json' => $data
+            ];
+        }
+
+        $this->client->post($uri, $data);
     }
 }

@@ -5,5 +5,5 @@ namespace TgShop\Http;
 
 interface MiddlewareInterface
 {
-    public function process(RequestInterface $request);
+    public function process(RequestInterface &$request);
 }

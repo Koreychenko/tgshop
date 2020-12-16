@@ -78,7 +78,7 @@ class SendMessage extends Command implements CommandInterface
         return $this;
     }
 
-    public function setReplyMarkup(InlineKeyboardMarkup $replyMarkup): self
+    public function setReplyMarkup($replyMarkup): self
     {
         $this->replyMarkup = $replyMarkup;
 
@@ -122,4 +122,6 @@ class SendMessage extends Command implements CommandInterface
 
         return $command;
     }
+
+
 }

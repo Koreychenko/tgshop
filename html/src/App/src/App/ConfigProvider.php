@@ -7,18 +7,22 @@ use App\Aux\ConsoleApplicationFactory;
 use App\Aux\LoggerFactory;
 use App\Cli\MainBotSendMessageCommandFactory;
 use App\Cli\MainBotSetWebhookCommandFactory;
-use App\Handler\UpdateHandler;
-use App\Handler\UpdateHandlerFactory;
+use App\Handler\MainBotHandlerFactory;
 use App\Middleware\CheckTokenMiddleware;
 use App\Middleware\CheckTokenMiddlewareFactory;
+use App\Middleware\ExtractStoreParametersMiddleware;
+use App\Middleware\ExtractStoreParametersMiddlewareFactory;
 use App\Processor\Handler\CallbackQueryHandler;
 use App\Processor\Handler\HelloStringHandler;
 use App\Processor\Handler\StartCommandHandler;
 use App\Processor\Handler\StartCommandHandlerFactory;
-use App\Service\MainBotProvider;
+use App\Processor\Middleware\UserExtractMiddleware;
+use App\Processor\Middleware\UserExtractMiddlewareFactory;
+use App\Service\MainStaticBotProvider;
 use App\Service\MainBotProviderFactory;
 use App\Service\MainBotRouteConfigurationFactory;
 use App\Service\MainBotRouterFactory;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Application;
 use TgShop\Cli\SendMessageCommand;
@@ -39,18 +43,22 @@ class ConfigProvider
             'invokables' => [
                 HelloStringHandler::class,
                 CallbackQueryHandler::class,
+
             ],
             'factories' => [
-                UpdateHandler::class                           => UpdateHandlerFactory::class,
+                EntityManagerInterface::class                  => EntityManagerFactory::class,
+                MainBotHandlerFactory::SERVICE_NAME            => MainBotHandlerFactory::class,
                 CheckTokenMiddleware::class                    => CheckTokenMiddlewareFactory::class,
                 LoggerInterface::class                         => LoggerFactory::class,
                 Application::class                             => ConsoleApplicationFactory::class,
                 SetWebhookCommand::class                       => MainBotSetWebhookCommandFactory::class,
                 SendMessageCommand::class                      => MainBotSendMessageCommandFactory::class,
-                MainBotProvider::class                         => MainBotProviderFactory::class,
+                MainStaticBotProvider::class                   => MainBotProviderFactory::class,
                 MainBotRouteConfigurationFactory::SERVICE_NAME => MainBotRouteConfigurationFactory::class,
                 MainBotRouterFactory::SERVICE_NAME             => MainBotRouterFactory::class,
                 StartCommandHandler::class                     => StartCommandHandlerFactory::class,
+                UserExtractMiddleware::class                   => UserExtractMiddlewareFactory::class,
+                ExtractStoreParametersMiddleware::class => ExtractStoreParametersMiddlewareFactory::class,
             ],
             'cli'       => [
 

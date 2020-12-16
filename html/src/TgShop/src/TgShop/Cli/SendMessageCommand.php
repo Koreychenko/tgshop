@@ -7,17 +7,18 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use TgShop\BotProviderInterface;
+use TgShop\StaticBotProviderInterface;
 use TgShop\Command\Element\InlineKeyboardButton;
 use TgShop\Command\Element\InlineKeyboardMarkup;
 use TgShop\Command\Element\InlineKeyboardRow;
 use TgShop\Command\SendMessage;
+use TgShop\Command\SendPhoto;
 
 class SendMessageCommand extends Command
 {
-    protected BotProviderInterface $botProvider;
+    protected StaticBotProviderInterface $botProvider;
 
-    public function __construct(BotProviderInterface $botProvider)
+    public function __construct(StaticBotProviderInterface $botProvider)
     {
         $this->botProvider = $botProvider;
 
@@ -62,7 +63,11 @@ class SendMessageCommand extends Command
                     ->addButton((new InlineKeyboardButton('test2 row2'))->setUrl('http://google.com'))
             );
 
-        $sendMessageCommand = (new SendMessage((int) $chatId, $text))->setReplyMarkup($inlineKeyboard);
+        //$sendMessageCommand = (new SendMessage((int) $chatId, $text))->setReplyMarkup($inlineKeyboard);
+        $sendMessageCommand = (new SendPhoto((int) $chatId))
+            //->setImagePath('/tmp/test.png')
+            ->setReplyMarkup($inlineKeyboard)
+            ->setImageUrl('https://www.google.com/logos/doodles/2020/december-holidays-days-2-30-6753651837108830.5-s.png');
 
         $bot = $this->botProvider->getBot($botId);
 

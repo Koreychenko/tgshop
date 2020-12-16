@@ -10,6 +10,7 @@ use TgShop\Dto\Update;
 use TgShop\Http\HandlerInterface;
 use TgShop\Http\MiddlewareInterface;
 use TgShop\Http\Request;
+use TgShop\Model\User;
 
 class Router
 {

@@ -8,11 +8,11 @@ use TgShop\Service\Bot;
 
 final class MainBotProviderFactory
 {
-    public function __invoke(ContainerInterface $container): MainBotProvider
+    public function __invoke(ContainerInterface $container): MainStaticBotProvider
     {
         $token = $container->get('config')['telegram']['main_bot']['token'];
 
-        return new MainBotProvider(
+        return new MainStaticBotProvider(
             $token,
             $container->get(Bot::class)
         );

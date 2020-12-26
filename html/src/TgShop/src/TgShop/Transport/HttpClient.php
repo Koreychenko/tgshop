@@ -18,7 +18,7 @@ class HttpClient
     {
         if (!array_key_exists('multipart', $data)) {
             $data = [
-                'json' => $data
+                'json' => $data,
             ];
         }
 

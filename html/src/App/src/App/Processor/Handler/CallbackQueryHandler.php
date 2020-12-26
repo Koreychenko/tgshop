@@ -5,11 +5,11 @@ namespace App\Processor\Handler;
 
 use TgShop\Command\SendMessage;
 use TgShop\Http\HandlerInterface;
-use TgShop\Http\RequestInterface;
+use TgShop\Http\TelegramRequestInterface;
 
 class CallbackQueryHandler implements HandlerInterface
 {
-    public function handle(RequestInterface $request)
+    public function handle(TelegramRequestInterface $request)
     {
         $userId = $request->getUpdate()->getCallbackQuery()->getFrom()->getId();
 

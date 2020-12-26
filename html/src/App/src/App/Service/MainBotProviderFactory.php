@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use Psr\Container\ContainerInterface;
-use TgShop\Service\Bot;
+use TgShop\Service\ImmediateSender;
 
 final class MainBotProviderFactory
 {
@@ -14,7 +14,7 @@ final class MainBotProviderFactory
 
         return new MainStaticBotProvider(
             $token,
-            $container->get(Bot::class)
+            $container->get(ImmediateSender::class)
         );
     }
 }

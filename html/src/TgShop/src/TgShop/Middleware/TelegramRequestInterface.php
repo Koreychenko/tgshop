@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace TgShop\Http;
+namespace TgShop\Middleware;
 
 use TgShop\Dto\Update;
 
-interface RequestInterface
+interface TelegramRequestInterface
 {
-    public function getUpdate(): Update;
-
-    public function setArgument(string $argumentName, $argument);
-
     public function getArgument(string $argumentName);
 
     public function getParameter(string $parameterName);
+
+    public function getUpdate(): Update;
+
+    public function setArgument(string $argumentName, $argument);
 }

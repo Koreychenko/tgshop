@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace TgShop\Service;
+namespace TgShop\Router;
 
 class RouteConfiguration implements RouteConfigurationInterface
 {

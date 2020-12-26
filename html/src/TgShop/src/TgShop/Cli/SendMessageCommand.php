@@ -7,20 +7,25 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use TgShop\StaticBotProviderInterface;
+use TgShop\BotProviderInterface;
 use TgShop\Command\Element\InlineKeyboardButton;
 use TgShop\Command\Element\InlineKeyboardMarkup;
 use TgShop\Command\Element\InlineKeyboardRow;
-use TgShop\Command\SendMessage;
 use TgShop\Command\SendPhoto;
+use TgShop\Model\CommandCollection;
+use TgShop\Model\CommandCollectionItem;
+use TgShop\Transport\SenderInterface;
 
 class SendMessageCommand extends Command
 {
-    protected StaticBotProviderInterface $botProvider;
+    protected BotProviderInterface $botProvider;
 
-    public function __construct(StaticBotProviderInterface $botProvider)
+    protected SenderInterface $sender;
+
+    public function __construct(BotProviderInterface $botProvider, SenderInterface $sender)
     {
         $this->botProvider = $botProvider;
+        $this->sender      = $sender;
 
         parent::__construct('bot:sendMessage');
     }
@@ -75,7 +80,10 @@ class SendMessageCommand extends Command
             return 0;
         }
 
-        $bot->send($sendMessageCommand);
+        $commandCollection = new CommandCollection();
+        $commandCollection->addCommand(new CommandCollectionItem($sendMessageCommand, $bot));
+
+        $this->sender->send($commandCollection);
 
         return 0;
     }

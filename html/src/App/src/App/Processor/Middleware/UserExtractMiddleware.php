@@ -5,7 +5,7 @@ namespace App\Processor\Middleware;
 
 use Psr\Log\LoggerInterface;
 use TgShop\Http\MiddlewareInterface;
-use TgShop\Http\RequestInterface;
+use TgShop\Http\TelegramRequestInterface;
 use TgShop\Model\User;
 
 class UserExtractMiddleware implements MiddlewareInterface
@@ -17,7 +17,7 @@ class UserExtractMiddleware implements MiddlewareInterface
         $this->logger = $logger;
     }
 
-    public function process(RequestInterface &$request)
+    public function process(TelegramRequestInterface &$request)
     {
         $user = $request->getUpdate()->getMessage()->getFrom();
 

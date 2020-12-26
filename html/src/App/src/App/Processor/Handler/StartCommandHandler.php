@@ -7,7 +7,7 @@ use App\Element\Keyboard;
 use Psr\Log\LoggerInterface;
 use TgShop\Command\SendMessage;
 use TgShop\Http\HandlerInterface;
-use TgShop\Http\RequestInterface;
+use TgShop\Http\TelegramRequestInterface;
 use TgShop\Model\User;
 
 class StartCommandHandler implements HandlerInterface
@@ -19,7 +19,7 @@ class StartCommandHandler implements HandlerInterface
         $this->logger = $logger;
     }
 
-    public function handle(RequestInterface $request)
+    public function handle(TelegramRequestInterface $request)
     {
         /** @var User $user */
         $user = $request->getArgument(User::class);

@@ -7,5 +7,5 @@ use TgShop\Model\CommandCollection;
 
 interface MiddlewareInterface
 {
-    public function handle(TelegramRequestInterface &$telegramRequest): ?CommandCollection;
+    public function handle(TelegramRequestInterface $telegramRequest): ?CommandCollection;
 }

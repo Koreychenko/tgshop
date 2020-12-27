@@ -5,6 +5,11 @@ namespace TgShop;
 
 use TgShop\Cli\SendMessageCommand;
 use TgShop\Cli\SetWebhookCommand;
+use TgShop\Router\Matcher\CommandMatcher;
+use TgShop\Router\Matcher\InlineQueryMatcher;
+use TgShop\Router\Matcher\StateMatcher;
+use TgShop\Router\Matcher\StateMatcherFactory;
+use TgShop\Router\Matcher\StringMatcher;
 use TgShop\Transport\HttpClient;
 use TgShop\Transport\HttpClientFactory;
 use TgShop\Transport\ImmediateSender;
@@ -26,9 +31,15 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
-            'factories' => [
+            'invokables' => [
+                CommandMatcher::class,
+                InlineQueryMatcher::class,
+                StringMatcher::class,
+            ],
+            'factories'  => [
                 HttpClient::class      => HttpClientFactory::class,
                 ImmediateSender::class => ImmediateSenderFactory::class,
+                StateMatcher::class    => StateMatcherFactory::class,
             ],
         ];
     }

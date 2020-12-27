@@ -24,21 +24,23 @@ class BotApp implements BotAppInterface
         SenderInterface $sender,
         ContainerInterface $container
     ) {
-        $this->router    = $router;
-        $this->sender    = $sender;
-        $this->container = $container;
+        $this->router          = $router;
+        $this->sender          = $sender;
+        $this->container       = $container;
     }
 
     public function handle(TelegramRequestInterface $telegramRequest): void
     {
         $routes = $this->router->match($telegramRequest);
 
-        if (empty($routes)) {
+        if (!$routes) {
             return;
         }
 
         foreach ($routes as $route) {
-            $route = $this->container->get($route);
+            if (is_string($route)) {
+                $route = $this->container->get($route);
+            }
 
             if ($route instanceof MiddlewareInterface) {
                 $result = $route->handle($telegramRequest);

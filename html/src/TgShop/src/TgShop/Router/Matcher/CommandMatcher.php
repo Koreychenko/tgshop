@@ -19,10 +19,6 @@ class CommandMatcher implements RouterMatcherInterface
     ): ?array {
         $update = $telegramRequest->getUpdate();
 
-        if (empty($routeConfiguration->getCommands())) {
-            return null;
-        }
-
         if (!$update->getMessage()) {
             return null;
         }
@@ -36,7 +32,7 @@ class CommandMatcher implements RouterMatcherInterface
                 $command = mb_substr($update->getMessage()->getText(), $entity->getOffset() + 1,
                                      $entity->getLength() - 1);
 
-                $routes = $routeConfiguration->getCommandRoutes($command);
+                $routes = $routeConfiguration->getSectionRoutes(static::SECTION, $command);
 
                 if ($routes) {
                     return $routes;

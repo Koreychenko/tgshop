@@ -17,10 +17,6 @@ class InlineQueryMatcher implements RouterMatcherInterface
         RouteConfigurationInterface $routeConfiguration,
         ContainerInterface $container
     ): ?array {
-        if (empty($routeConfiguration->getQueries())) {
-            return null;
-        }
-
         if (!$telegramRequest->getUpdate()->getCallbackQuery()) {
             return null;
         }
@@ -29,7 +25,7 @@ class InlineQueryMatcher implements RouterMatcherInterface
 
         $path = parse_url($data, PHP_URL_PATH);
 
-        $routes = $routeConfiguration->getQueryRoutes($path);
+        $routes = $routeConfiguration->getSectionRoutes(static::SECTION, $path);
 
         if (!$routes) {
             return null;

@@ -18,20 +18,10 @@ class StringMatcher implements RouterMatcherInterface
     ): ?array {
         $update = $telegramRequest->getUpdate();
 
-        if (empty($routeConfiguration->getStrings())) {
-            return null;
-        }
-
         if (!$update->getMessage()) {
             return null;
         }
 
-        $routes = $routeConfiguration->getStringRoutes($update->getMessage()->getText());
-
-        if ($routes) {
-            return $routes;
-        }
-
-        return null;
+        return $routeConfiguration->getSectionRoutes(static::SECTION, $update->getMessage()->getText());
     }
 }

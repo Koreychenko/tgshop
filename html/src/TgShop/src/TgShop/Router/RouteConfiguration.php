@@ -12,67 +12,27 @@ class RouteConfiguration implements RouteConfigurationInterface
         $this->routes = $routes;
     }
 
-    public function getCommandRoutes(string $commandName): ?array
+    protected function getSection(string $sectionName): ?array
     {
-        $commands = $this->getCommands();
+        if (array_key_exists($sectionName, $this->routes)) {
+            return $this->routes[$sectionName];
+        }
 
-        foreach ($commands as $command => $routes) {
-            if ($command === $commandName) {
+        return null;
+    }
+
+    public function getSectionRoutes(string $sectionName, string $patternString): ?array
+    {
+        $section = $this->getSection($sectionName);
+
+        if (empty($section)) {
+            return null;
+        }
+
+        foreach ($section as $pattern => $routes) {
+            if ($pattern === $patternString) {
                 return $routes;
             }
-        }
-
-        return null;
-    }
-
-    public function getCommands(): ?array
-    {
-        if (array_key_exists(Router::SECTION_COMMANDS, $this->routes)) {
-            return $this->routes[Router::SECTION_COMMANDS];
-        }
-
-        return null;
-    }
-
-    public function getQueries(): ?array
-    {
-        if (array_key_exists(Router::SECTION_QUERIES, $this->routes)) {
-            return $this->routes[Router::SECTION_QUERIES];
-        }
-
-        return null;
-    }
-
-    public function getQueryRoutes(string $queryPath): ?array
-    {
-        $queries = $this->getQueries();
-
-        foreach ($queries as $path => $routes) {
-            if ($path === $queryPath) {
-                return $routes;
-            }
-        }
-
-        return null;
-    }
-
-    public function getStringRoutes(string $stringName): ?array
-    {
-        $strings = $this->getStrings();
-
-        foreach ($strings as $string => $routes) {
-            if ($string === $stringName) {
-                return $routes;
-            }
-        }
-
-        return null;
-    }
-
-    public function getStrings(): ?array
-    {
-        if (array_key_exists(Router::SECTION_STRINGS, $this->routes)) {
-            return $this->routes[Router::SECTION_STRINGS];
         }
 
         return null;

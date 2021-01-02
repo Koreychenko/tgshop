@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace TgShop;
 
-use TgShop\Cli\SendMessageCommand;
-use TgShop\Cli\SetWebhookCommand;
 use TgShop\Router\Matcher\CommandMatcher;
 use TgShop\Router\Matcher\InlineQueryMatcher;
 use TgShop\Router\Matcher\StateMatcher;
@@ -21,10 +19,6 @@ class ConfigProvider
     {
         return [
             'dependencies'     => $this->getDependencies(),
-            'enabled_commands' => [
-                SetWebhookCommand::class,
-                SendMessageCommand::class,
-            ],
         ];
     }
 

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace TgShop\Handler;
 
+use Exception;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -12,6 +13,7 @@ use TgShop\BotApp;
 use TgShop\BotAppInterface;
 use TgShop\BotProviderInterface;
 use TgShop\Dto\Update;
+use TgShop\Exception\InvalidTokenException;
 use TgShop\Middleware\TelegramRequest;
 use Throwable;
 
@@ -47,11 +49,19 @@ class BotUpdateHandler implements RequestHandlerInterface
 
             $defaultBot = $this->botProvider->getBot($this->getBotId($request));
 
+            if (!$defaultBot) {
+                throw new InvalidTokenException('Bot is not found');
+            }
+
             $telegramRequest->setArgument(BotApp::DEFAULT_BOT_ARGUMENT, $defaultBot);
 
             $this->botApp->handle($telegramRequest);
+        } catch (InvalidTokenException $exception) {
+            $this->logger->error($exception->getMessage(), ['exception' => $exception]);
+
+            throw $exception;
         } catch (Throwable $exception) {
-            $this->logger->error('telegram_data', ['update' => $exception]);
+            $this->logger->error($exception->getMessage(), ['exception' => $exception]);
         }
 
         return new JsonResponse([]);

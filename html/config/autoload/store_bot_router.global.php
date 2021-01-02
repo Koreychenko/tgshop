@@ -7,7 +7,7 @@ use TgShop\Router\Matcher\StringMatcher;
 
 return [
     'telegram' => [
-        'main_bot' => [
+        'store_bot' => [
             'router' => [
                 StringMatcher::SECTION => [
                 ],

@@ -82,7 +82,7 @@ class InlineKeyboardButton
 
         if ($this->callbackData) {
             if (mb_strlen($this->callbackData) > 64) {
-                throw new RuntimeException('Too long callback data line. Only 64 bytes allowed');
+                throw new RuntimeException('Too long callback data line. Only 64 bytes are allowed');
             }
 
             $element['callback_data'] = $this->callbackData;

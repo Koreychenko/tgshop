@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace TgShop\Dto;
 
-use TgShop\Model\User;
-
 class Update
 {
     protected int            $updateId;
@@ -58,10 +56,5 @@ class Update
         }
 
         return $update;
-    }
-
-    public function getUser(): User
-    {
-
     }
 }

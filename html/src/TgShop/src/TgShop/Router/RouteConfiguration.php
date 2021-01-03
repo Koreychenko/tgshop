@@ -12,15 +12,6 @@ class RouteConfiguration implements RouteConfigurationInterface
         $this->routes = $routes;
     }
 
-    protected function getSection(string $sectionName): ?array
-    {
-        if (array_key_exists($sectionName, $this->routes)) {
-            return $this->routes[$sectionName];
-        }
-
-        return null;
-    }
-
     public function getSectionRoutes(string $sectionName, string $patternString): ?array
     {
         $section = $this->getSection($sectionName);
@@ -33,6 +24,15 @@ class RouteConfiguration implements RouteConfigurationInterface
             if ($pattern === $patternString) {
                 return $routes;
             }
+        }
+
+        return null;
+    }
+
+    protected function getSection(string $sectionName): ?array
+    {
+        if (array_key_exists($sectionName, $this->routes)) {
+            return $this->routes[$sectionName];
         }
 
         return null;

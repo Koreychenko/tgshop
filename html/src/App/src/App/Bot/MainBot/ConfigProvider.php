@@ -8,6 +8,7 @@ use App\Bot\MainBot\Http\Middleware\CheckTokenMiddleware;
 use App\Bot\MainBot\Http\Middleware\CheckTokenMiddlewareFactory;
 use App\Bot\MainBot\Router\RouteConfigurationFactory;
 use App\Bot\MainBot\Router\RouterFactory;
+use App\Bot\MainBot\Middleware\RouterMiddlewareFactory;
 use App\Cli\SendMessageCommandFactory;
 use App\Cli\SetWebhookCommandFactory;
 use TgShop\Cli\SendMessageCommand;
@@ -37,6 +38,7 @@ class ConfigProvider
                 RouteConfigurationFactory::SERVICE_NAME => RouteConfigurationFactory::class,
                 UpdateHandlerFactory::SERVICE_NAME      => UpdateHandlerFactory::class,
                 CheckTokenMiddleware::class             => CheckTokenMiddlewareFactory::class,
+                RouterMiddlewareFactory::SERVICE_NAME   => RouterMiddlewareFactory::class,
             ],
             'cli'       => [
             ],

@@ -23,6 +23,12 @@ class CommandCollection implements Iterator
         $this->commands[] = $commandCollectionItem;
     }
 
+    public function clear(): void
+    {
+        $this->commands = [];
+        $this->position = 0;
+    }
+
     public function current(): CommandCollectionItem
     {
         return $this->commands[$this->position];

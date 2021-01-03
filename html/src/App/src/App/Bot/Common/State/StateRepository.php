@@ -10,6 +10,6 @@ class StateRepository implements StateRepositoryInterface
 {
     public function getState($user, $bot): ?StateInterface
     {
-        // TODO: Implement getState() method.
+        return null;
     }
 }

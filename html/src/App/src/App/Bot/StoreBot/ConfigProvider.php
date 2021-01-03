@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Bot\StoreBot;
 
 use App\Bot\StoreBot\Http\Handler\UpdateHandlerFactory;
+use App\Bot\StoreBot\Middleware\RouterMiddlewareFactory;
 use App\Bot\StoreBot\Router\RouteConfigurationFactory;
 use App\Bot\StoreBot\Router\RouterFactory;
 
@@ -27,6 +28,7 @@ class ConfigProvider
                 RouteConfigurationFactory::SERVICE_NAME => RouteConfigurationFactory::class,
                 RouterFactory::SERVICE_NAME             => RouterFactory::class,
                 BotProvider::class                      => BotProviderFactory::class,
+                RouterMiddlewareFactory::SERVICE_NAME   => RouterMiddlewareFactory::class,
             ],
             'cli' => [
             ],

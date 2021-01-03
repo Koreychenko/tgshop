@@ -7,6 +7,8 @@ use TgShop\Dto\Update;
 
 class TelegramRequest implements TelegramRequestInterface
 {
+    public const PIPELINE_ERROR = 'pipeline_error';
+
     protected Update $update;
 
     protected ?array $parameters = null;

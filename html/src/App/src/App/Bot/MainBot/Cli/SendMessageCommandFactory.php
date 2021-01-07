@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Cli;
+namespace App\Bot\MainBot\Cli;
 
 use App\Bot\MainBot\BotProvider;
 use Psr\Container\ContainerInterface;

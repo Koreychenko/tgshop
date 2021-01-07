@@ -5,7 +5,7 @@ namespace App\Entity;
 
 class User
 {
-    private int     $id;
+    private ?int     $id = null;
 
     private int     $telegramId;
 
@@ -13,7 +13,7 @@ class User
 
     private string  $firstName;
 
-    private ?int    $languageCode            = null;
+    private ?string $languageCode            = null;
 
     private ?string $lastName                = null;
 
@@ -25,7 +25,7 @@ class User
 
     private ?bool   $supportsInlineQueries   = null;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -60,12 +60,12 @@ class User
         $this->firstName = $firstName;
     }
 
-    public function getLanguageCode(): ?int
+    public function getLanguageCode(): ?string
     {
         return $this->languageCode;
     }
 
-    public function setLanguageCode(?int $languageCode): void
+    public function setLanguageCode(?string $languageCode): void
     {
         $this->languageCode = $languageCode;
     }

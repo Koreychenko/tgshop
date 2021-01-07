@@ -28,6 +28,7 @@ use Psr\Container\ContainerInterface;
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $app->post('/update/main/:token', [
         CheckTokenMiddleware::class,
+        \App\Bot\MainBot\Http\Middleware\RequestSaverMiddleware::class,
         \App\Bot\MainBot\Http\Handler\UpdateHandlerFactory::SERVICE_NAME,
     ]);
 

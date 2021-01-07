@@ -17,7 +17,7 @@ final class LoggerFactory
 
         // create a log channel
         $logger = new Logger('name');
-        $handler = new StreamHandler($loggerConfig['path'], Logger::WARNING);
+        $handler = new StreamHandler($loggerConfig['path'], $loggerConfig['level']);
 
         $formatter = new LineFormatter(null, null, true, true);
         $formatter->setJsonPrettyPrint(true);

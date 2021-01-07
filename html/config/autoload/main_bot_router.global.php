@@ -12,6 +12,9 @@ return [
                 StringMatcher::SECTION => [
                 ],
                 CommandMatcher::SECTION => [
+                    'start' => [
+                        \App\Bot\MainBot\Middleware\Command\StartCommand::class,
+                    ]
                 ],
                 InlineQueryMatcher::SECTION => [
                 ]

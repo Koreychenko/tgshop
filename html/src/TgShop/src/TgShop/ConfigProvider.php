@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace TgShop;
 
+use TgShop\Middleware\ChatExtractorMiddleware;
 use TgShop\Middleware\ErrorHandlerMiddleware;
 use TgShop\Middleware\ErrorHandlerMiddlewareFactory;
 use TgShop\Middleware\HandlerMiddleware;
@@ -35,6 +36,7 @@ class ConfigProvider
                 InlineQueryMatcher::class,
                 StringMatcher::class,
                 HandlerMiddleware::class,
+                ChatExtractorMiddleware::class,
             ],
             'factories'  => [
                 HttpClient::class              => HttpClientFactory::class,

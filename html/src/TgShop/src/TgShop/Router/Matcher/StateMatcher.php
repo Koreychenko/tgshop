@@ -24,7 +24,7 @@ class StateMatcher implements RouterMatcherInterface
         RouteConfigurationInterface $routeConfiguration,
         ContainerInterface $container
     ): ?array {
-        $user = $telegramRequest->getArgument(UserExtractorMiddleware::CURRENT_USER);
+        $user = $telegramRequest->getArgument(UserExtractorMiddleware::ARGUMENT_CURRENT_USER);
         $bot  = $telegramRequest->getArgument(BotApp::DEFAULT_BOT_ARGUMENT);
 
         $state = $this->stateRepository->getState($user, $bot);

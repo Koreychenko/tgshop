@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace TgShop;
 
 use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
+use TgShop\Middleware\ErrorHandlerMiddleware;
 use TgShop\Middleware\MiddlewareInterface;
 use TgShop\Middleware\TelegramRequest;
 use TgShop\Middleware\TelegramRequestInterface;
@@ -40,8 +42,21 @@ class BotApp implements BotAppInterface
 
         $pipeline = $this->pipeline;
 
-        foreach ($pipeline as $key => $pipe) {
-            try {
+        try {
+            foreach ($pipeline as $key => $pipe) {
+                if ($this->container->get('config')['debug']) {
+                    if ($this->container->has(LoggerInterface::class)) {
+                        /** @var LoggerInterface $logger */
+                        $logger = $this->container->get(LoggerInterface::class);
+
+                        $logger->debug('Telegram request log', [
+                            'request' => $telegramRequest,
+                            'response' => $telegramResponse,
+                            'middleware' => $pipe,
+                        ]);
+                    }
+                }
+
                 if (is_string($pipe)) {
                     $pipe = $this->container->get($pipe);
                 }
@@ -61,8 +76,20 @@ class BotApp implements BotAppInterface
                         return;
                     }
                 }
-            } catch (Throwable $exception) {
-                $telegramRequest->setArgument(TelegramRequest::PIPELINE_ERROR, $exception);
+            }
+        } catch (Throwable $exception) {
+            $telegramRequest->setArgument(TelegramRequest::PIPELINE_ERROR, $exception);
+
+            $errorHandlerMiddleware = $this->container->get(ErrorHandlerMiddleware::class);
+
+            $result = $errorHandlerMiddleware->handle($telegramRequest, $telegramResponse);
+
+            /* If middleware returns an object of type TelegramResponseInterface stop
+                    further request processing and try to send commands list */
+            if ($result and $result instanceof TelegramResponseInterface) {
+                $this->sender->send($result->getCommands());
+
+                return;
             }
         }
 

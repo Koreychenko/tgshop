@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace TgShop\Handler;
 
-use Exception;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

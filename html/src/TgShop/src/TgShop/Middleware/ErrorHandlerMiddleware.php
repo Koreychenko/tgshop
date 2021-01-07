@@ -6,6 +6,7 @@ namespace TgShop\Middleware;
 use Exception;
 use Psr\Log\LoggerInterface;
 use TgShop\Command\SendMessage;
+use TgShop\Dto\Chat;
 
 class ErrorHandlerMiddleware implements MiddlewareInterface
 {
@@ -24,7 +25,9 @@ class ErrorHandlerMiddleware implements MiddlewareInterface
         if ($error) {
             $this->logger->critical($error->getMessage(), ['exception' => $error]);
             $telegramResponse->clearCommands();
-            $telegramResponse->addDefaultBotCommand(new SendMessage());
+            /** @var Chat $chat */
+            $chat = $telegramRequest->getArgument(ChatExtractorMiddleware::ARGUMENT_CURRENT_CHAT);
+            $telegramResponse->addDefaultBotCommand(new SendMessage($chat->getId(), $error->getMessage()));
 
             return $telegramResponse;
         }

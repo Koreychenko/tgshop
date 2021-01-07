@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace TgShop\Middleware;
 
-class UserExtractorMiddleware implements MiddlewareInterface
+class ChatExtractorMiddleware implements MiddlewareInterface
 {
-    public const ARGUMENT_CURRENT_USER = 'current_user';
+    public const ARGUMENT_CURRENT_CHAT = 'argument_current_chat';
 
     public function handle(TelegramRequestInterface $telegramRequest, TelegramResponseInterface $telegramResponse)
     {
@@ -20,10 +20,10 @@ class UserExtractorMiddleware implements MiddlewareInterface
         }
 
         if ($message) {
-            $user = $message->getFrom();
+            $chat = $message->getChat();
 
-            if ($user) {
-                $telegramRequest->setArgument(static::ARGUMENT_CURRENT_USER, $user);
+            if ($chat) {
+                $telegramRequest->setArgument(static::ARGUMENT_CURRENT_CHAT, $chat);
             }
         }
     }

@@ -5,7 +5,11 @@ namespace App;
 
 use App\Aux\ConsoleApplicationFactory;
 use App\Aux\LoggerFactory;
+use App\Bot\Common\Middleware\UserSaveMiddleware;
+use App\Bot\Common\Middleware\UserSaveMiddlewareFactory;
 use App\Bot\Common\State\StateRepositoryFactory;
+use App\Bot\MainBot\Http\Middleware\RequestSaverMiddleware;
+use App\Bot\MainBot\Http\Middleware\RequestSaverMiddlewareFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Application;
@@ -30,6 +34,8 @@ class ConfigProvider
                 LoggerInterface::class          => LoggerFactory::class,
                 Application::class              => ConsoleApplicationFactory::class,
                 StateRepositoryInterface::class => StateRepositoryFactory::class,
+                RequestSaverMiddleware::class   => RequestSaverMiddlewareFactory::class,
+                UserSaveMiddleware::class       => UserSaveMiddlewareFactory::class,
             ],
             'cli'       => [
             ],

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity
+            name="App\Entity\User"
+            table="user"
+            repository-class="App\Bot\Common\Repository\UserRepository"
+    >
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="telegramId" type="integer" column="telegram_id" nullable="false">
+            <options>
+                <option name="unsigned"/>
+            </options>
+        </field>
+        <field name="firstName" column="first_name" nullable="false" />
+        <field name="bot" type="boolean" column="is_bot" nullable="false" />
+        <field name="lastName" column="last_name" nullable="true" />
+        <field name="userName" column="user_name" nullable="true" />
+        <field name="languageCode" column="language_code" nullable="true" />
+        <field name="canJoinGroups" type="boolean" column="can_join_groups" nullable="true" />
+        <field name="canReadAllGroupMessages" type="boolean" column="can_read_all_group_messages" nullable="true" />
+        <field name="supportsInlineQueries" type="boolean" column="supports_inline_queries" nullable="true" />
+    </entity>
+</doctrine-mapping>

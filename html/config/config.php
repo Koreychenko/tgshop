@@ -14,10 +14,10 @@ $cacheConfig = [
 
 $aggregator = new ConfigAggregator([
     \Mezzio\Cors\ConfigProvider::class,
+    \TgShop\ConfigProvider::class,
     \App\ConfigProvider::class,
     \App\Bot\MainBot\ConfigProvider::class,
     \App\Bot\StoreBot\ConfigProvider::class,
-    \TgShop\ConfigProvider::class,
     \Mezzio\Twig\ConfigProvider::class,
     \Laminas\HttpHandlerRunner\ConfigProvider::class,
     \Mezzio\Router\LaminasRouter\ConfigProvider::class,

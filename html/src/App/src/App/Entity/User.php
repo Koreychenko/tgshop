@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-class User
+use TgShop\Dto\UserInterface;
+
+class User implements UserInterface
 {
-    private ?int     $id = null;
+    private ?int    $id = null;
 
     private int     $telegramId;
 
@@ -25,9 +27,18 @@ class User
 
     private ?bool   $supportsInlineQueries   = null;
 
+    private $stores = null;
+
+    private $states = null;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getStores()
+    {
+        return $this->stores;
     }
 
     public function getTelegramId(): int
@@ -118,5 +129,10 @@ class User
     public function setSupportsInlineQueries(?bool $supportsInlineQueries): void
     {
         $this->supportsInlineQueries = $supportsInlineQueries;
+    }
+
+    public function setStores($stores): void
+    {
+        $this->stores = $stores;
     }
 }

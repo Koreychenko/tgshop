@@ -5,9 +5,15 @@ namespace TgShop\State;
 
 interface StateInterface
 {
-    public function getHandler(): string;
+    public function getWorkflow(): string;
 
     public function getStep(): string;
 
-    public function getParameters(): array;
+    public function getParameters(): ?object;
+
+    public function setStep(string $stepName): void;
+
+    public function setWorkflow(string $stepName): void;
+
+    public function setParameters(object $parameters): void;
 }

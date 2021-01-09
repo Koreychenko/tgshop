@@ -24,6 +24,8 @@ class BotApp implements BotAppInterface
 
     protected ContainerInterface $container;
 
+    protected ?LoggerInterface   $logger = null;
+
     public function __construct(
         array $pipeline,
         SenderInterface $sender,
@@ -32,6 +34,12 @@ class BotApp implements BotAppInterface
         $this->pipeline  = $pipeline;
         $this->sender    = $sender;
         $this->container = $container;
+
+        if ($this->container->get('config')['debug']) {
+            if ($this->container->has(LoggerInterface::class)) {
+                $this->logger = $this->container->get(LoggerInterface::class);
+            }
+        }
     }
 
     public function handle(TelegramRequestInterface $telegramRequest): void
@@ -44,17 +52,12 @@ class BotApp implements BotAppInterface
 
         try {
             foreach ($pipeline as $key => $pipe) {
-                if ($this->container->get('config')['debug']) {
-                    if ($this->container->has(LoggerInterface::class)) {
-                        /** @var LoggerInterface $logger */
-                        $logger = $this->container->get(LoggerInterface::class);
-
-                        $logger->debug('Telegram request log', [
-                            'request' => $telegramRequest,
-                            'response' => $telegramResponse,
-                            'middleware' => $pipe,
-                        ]);
-                    }
+                if ($this->logger) {
+                    $this->logger->debug('Telegram request log', [
+                        'request'    => $telegramRequest,
+                        'response'   => $telegramResponse,
+                        'middleware' => $pipe,
+                    ]);
                 }
 
                 if (is_string($pipe)) {
@@ -78,6 +81,12 @@ class BotApp implements BotAppInterface
                 }
             }
         } catch (Throwable $exception) {
+            if ($this->logger) {
+                $this->logger->error($exception->getMessage(), [
+                    'exception' => $exception,
+                ]);
+            }
+
             $telegramRequest->setArgument(TelegramRequest::PIPELINE_ERROR, $exception);
 
             $errorHandlerMiddleware = $this->container->get(ErrorHandlerMiddleware::class);

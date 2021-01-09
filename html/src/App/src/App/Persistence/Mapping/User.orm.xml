@@ -21,5 +21,7 @@
         <field name="canJoinGroups" type="boolean" column="can_join_groups" nullable="true" />
         <field name="canReadAllGroupMessages" type="boolean" column="can_read_all_group_messages" nullable="true" />
         <field name="supportsInlineQueries" type="boolean" column="supports_inline_queries" nullable="true" />
+        <one-to-many field="stores" target-entity="App\Entity\Store" mapped-by="owner" />
+        <one-to-many field="states" target-entity="App\Entity\State" mapped-by="user" />
     </entity>
 </doctrine-mapping>

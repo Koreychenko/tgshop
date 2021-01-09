@@ -10,13 +10,26 @@ return [
         'main_bot' => [
             'router' => [
                 StringMatcher::SECTION => [
+                    'Settings' => [
+                        \App\Bot\MainBot\Middleware\String\SettingsMiddleware::class,
+                    ],
+                    'Add store' => [
+                        \App\Bot\MainBot\Workflow\AddStore\AddStoreWorkflowFactory::SERVICE_NAME,
+                    ]
                 ],
                 CommandMatcher::SECTION => [
                     'start' => [
                         \App\Bot\MainBot\Middleware\Command\StartCommand::class,
+                        \App\Bot\MainBot\Middleware\MainKeyboardMiddleware::class,
                     ]
                 ],
                 InlineQueryMatcher::SECTION => [
+                    'settings' => [
+                        \App\Bot\MainBot\Middleware\CallbackQuery\SettingsMenuMiddleware::class,
+                    ],
+                    'switch_language' => [
+                        \App\Bot\MainBot\Middleware\CallbackQuery\SwitchLanguageMiddleware::class,
+                    ]
                 ]
             ],
         ],

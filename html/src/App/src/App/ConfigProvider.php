@@ -5,9 +5,11 @@ namespace App;
 
 use App\Aux\ConsoleApplicationFactory;
 use App\Aux\LoggerFactory;
+use App\Bot\Common\Middleware\PersistMiddleware;
+use App\Bot\Common\Middleware\PersistMiddlewareFactory;
 use App\Bot\Common\Middleware\UserSaveMiddleware;
 use App\Bot\Common\Middleware\UserSaveMiddlewareFactory;
-use App\Bot\Common\State\StateRepositoryFactory;
+use App\Bot\Common\Repository\StateRepositoryFactory;
 use App\Bot\MainBot\Http\Middleware\RequestSaverMiddleware;
 use App\Bot\MainBot\Http\Middleware\RequestSaverMiddlewareFactory;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,15 +31,16 @@ class ConfigProvider
         return [
             'invokables' => [
             ],
-            'factories' => [
+            'factories'  => [
                 EntityManagerInterface::class   => EntityManagerFactory::class,
                 LoggerInterface::class          => LoggerFactory::class,
                 Application::class              => ConsoleApplicationFactory::class,
                 StateRepositoryInterface::class => StateRepositoryFactory::class,
                 RequestSaverMiddleware::class   => RequestSaverMiddlewareFactory::class,
                 UserSaveMiddleware::class       => UserSaveMiddlewareFactory::class,
+                PersistMiddleware::class        => PersistMiddlewareFactory::class,
             ],
-            'cli'       => [
+            'cli'        => [
             ],
         ];
     }

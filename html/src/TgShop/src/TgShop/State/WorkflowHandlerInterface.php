@@ -7,7 +7,4 @@ use TgShop\Middleware\MiddlewareInterface;
 
 interface WorkflowHandlerInterface extends MiddlewareInterface
 {
-    public function setStep(string $stepName): void;
-
-    public function setParameters(array $parameters): void;
 }

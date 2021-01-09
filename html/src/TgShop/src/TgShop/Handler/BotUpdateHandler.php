@@ -43,6 +43,8 @@ class BotUpdateHandler implements RequestHandlerInterface
     {
         $content = json_decode($request->getBody()->getContents(), true);
 
+        $this->logger->error('test2');
+
         try {
             $telegramRequest = new TelegramRequest(Update::createFromArray($content));
 
@@ -59,9 +61,11 @@ class BotUpdateHandler implements RequestHandlerInterface
             $this->logger->error($exception->getMessage(), ['exception' => $exception]);
 
             throw $exception;
-        } catch (Throwable $exception) {
+        } catch (\Exception $exception) {
             $this->logger->error($exception->getMessage(), ['exception' => $exception]);
         }
+
+        $this->logger->error('test');
 
         return new JsonResponse([]);
     }

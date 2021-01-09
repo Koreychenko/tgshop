@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TgShop\Dto;
 
-class User
+class User implements UserInterface
 {
     protected bool    $bot;
 
@@ -113,7 +113,7 @@ class User
         return $this->firstName;
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

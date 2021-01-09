@@ -24,4 +24,9 @@ class StringMatcher implements RouterMatcherInterface
 
         return $routeConfiguration->getSectionRoutes(static::SECTION, $update->getMessage()->getText());
     }
+
+    private function cleanEmoji(string $text): string
+    {
+        return trim($text);
+    }
 }

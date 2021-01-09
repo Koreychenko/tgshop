@@ -34,5 +34,7 @@ class UserSaveMiddleware implements MiddlewareInterface
             $this->entityManager->persist($databaseUser);
             $this->entityManager->flush($databaseUser);
         }
+
+        $telegramRequest->setArgument(UserExtractorMiddleware::ARGUMENT_CURRENT_USER, $databaseUser);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Bot\MainBot\Middleware\Command;
+namespace App\Bot\MainBot\Middleware\CallbackQuery;
 
 use TgShop\Command\SendMessage;
 use TgShop\Dto\Chat;
@@ -10,15 +10,19 @@ use TgShop\Middleware\MiddlewareInterface;
 use TgShop\Middleware\TelegramRequestInterface;
 use TgShop\Middleware\TelegramResponseInterface;
 
-class StartCommand implements MiddlewareInterface
+class SwitchLanguageMiddleware implements MiddlewareInterface
 {
     public function handle(TelegramRequestInterface $telegramRequest, TelegramResponseInterface $telegramResponse)
     {
         /** @var Chat $chat */
         $chat = $telegramRequest->getArgument(ChatExtractorMiddleware::ARGUMENT_CURRENT_CHAT);
 
-        $message = new SendMessage($chat->getId(), 'Welcome!');
+        $language = $telegramRequest->getParameter('lang');
 
-        $telegramResponse->addDefaultBotCommand($message);
+        if ($language) {
+            $message = new SendMessage($chat->getId(), 'Language is changed');
+
+            $telegramResponse->addDefaultBotCommand($message);
+        }
     }
 }

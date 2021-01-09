@@ -8,15 +8,19 @@ use App\Bot\MainBot\Cli\SetWebhookCommandFactory;
 use App\Bot\MainBot\Http\Handler\UpdateHandlerFactory;
 use App\Bot\MainBot\Http\Middleware\CheckTokenMiddleware;
 use App\Bot\MainBot\Http\Middleware\CheckTokenMiddlewareFactory;
+use App\Bot\MainBot\Middleware\CallbackQuery\DeleteStoreMiddleware;
+use App\Bot\MainBot\Middleware\CallbackQuery\DeleteStoreMiddlewareFactory;
 use App\Bot\MainBot\Middleware\CallbackQuery\SettingsMenuMiddleware;
 use App\Bot\MainBot\Middleware\CallbackQuery\SwitchLanguageMiddleware;
 use App\Bot\MainBot\Middleware\Command\StartCommand;
 use App\Bot\MainBot\Middleware\MainKeyboardMiddleware;
 use App\Bot\MainBot\Middleware\RouterMiddlewareFactory;
 use App\Bot\MainBot\Middleware\String\SettingsMiddleware;
+use App\Bot\MainBot\Middleware\String\StoresMiddleware;
 use App\Bot\MainBot\Router\RouteConfigurationFactory;
 use App\Bot\MainBot\Router\RouterFactory;
 use App\Bot\MainBot\Workflow\AddStore\AddStoreNameStep;
+use App\Bot\MainBot\Workflow\AddStore\AddStoreNameStepFactory;
 use App\Bot\MainBot\Workflow\AddStore\AddStoreWorkflowFactory;
 use TgShop\Cli\SendMessageCommand;
 use TgShop\Cli\SetWebhookCommand;
@@ -40,9 +44,9 @@ class ConfigProvider
                 SettingsMiddleware::class,
                 SettingsMenuMiddleware::class,
                 SwitchLanguageMiddleware::class,
-                AddStoreNameStep::class,
+                StoresMiddleware::class,
             ],
-            'factories' => [
+            'factories'  => [
                 SetWebhookCommand::class                => SetWebhookCommandFactory::class,
                 SendMessageCommand::class               => SendMessageCommandFactory::class,
                 BotProvider::class                      => BotProviderFactory::class,
@@ -53,8 +57,10 @@ class ConfigProvider
                 CheckTokenMiddleware::class             => CheckTokenMiddlewareFactory::class,
                 RouterMiddlewareFactory::SERVICE_NAME   => RouterMiddlewareFactory::class,
                 AddStoreWorkflowFactory::SERVICE_NAME   => AddStoreWorkflowFactory::class,
+                AddStoreNameStep::class                 => AddStoreNameStepFactory::class,
+                DeleteStoreMiddleware::class            => DeleteStoreMiddlewareFactory::class,
             ],
-            'cli'       => [
+            'cli'        => [
             ],
         ];
     }

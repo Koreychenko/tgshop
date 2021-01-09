@@ -36,6 +36,9 @@ class User implements UserInterface
         return $this->id;
     }
 
+    /**
+     * @return Store[]
+     */
     public function getStores()
     {
         return $this->stores;

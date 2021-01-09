@@ -63,6 +63,7 @@ class WorkflowHandler implements WorkflowHandlerInterface
         try {
             $step = $this->steps->getStep($currentStepName);
 
+            $step->validate($telegramRequest, $telegramResponse);
             $step->processStep($telegramRequest, $telegramResponse);
             $step->afterStep($telegramRequest, $telegramResponse);
 
@@ -79,6 +80,7 @@ class WorkflowHandler implements WorkflowHandlerInterface
                 $this->stateRepository->remove($state);
             }
         } catch (Throwable $exception) {
+            throw $exception;
         }
     }
 }

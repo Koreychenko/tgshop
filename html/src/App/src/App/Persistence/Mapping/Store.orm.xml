@@ -3,7 +3,7 @@
     <entity
             name="App\Entity\Store"
             table="store"
-            repository-class="App\Repository\StoresRepository"
+            repository-class="App\Bot\Common\Repository\StoreRepository"
     >
         <id name="id" type="integer" column="id">
             <generator strategy="IDENTITY"/>

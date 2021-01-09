@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace TgShop;
 
+use TgShop\Middleware\CancelWorkflowMiddleware;
+use TgShop\Middleware\CancelWorkflowMiddlewareFactory;
 use TgShop\Middleware\ChatExtractorMiddleware;
 use TgShop\Middleware\ErrorHandlerMiddleware;
 use TgShop\Middleware\ErrorHandlerMiddlewareFactory;
@@ -46,6 +48,7 @@ class ConfigProvider
                 UserExtractorMiddleware::class  => UserExtractorMiddlewareFactory::class,
                 ErrorHandlerMiddleware::class   => ErrorHandlerMiddlewareFactory::class,
                 StateExtractorMiddleware::class => StateExtractorMiddlewareFactory::class,
+                CancelWorkflowMiddleware::class => CancelWorkflowMiddlewareFactory::class,
             ],
         ];
     }

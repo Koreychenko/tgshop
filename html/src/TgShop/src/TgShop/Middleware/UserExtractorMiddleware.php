@@ -12,11 +12,7 @@ class UserExtractorMiddleware implements MiddlewareInterface
         $message = $telegramRequest->getUpdate()->getMessage();
 
         if (!$message) {
-            $callbackQuery = $telegramRequest->getUpdate()->getCallbackQuery();
-
-            if ($callbackQuery) {
-                $message = $callbackQuery->getMessage();
-            }
+            $message = $telegramRequest->getUpdate()->getCallbackQuery();
         }
 
         if ($message) {

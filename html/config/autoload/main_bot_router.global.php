@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use TgShop\Middleware\CancelWorkflowMiddleware;
 use TgShop\Router\Matcher\CommandMatcher;
 use TgShop\Router\Matcher\InlineQueryMatcher;
 use TgShop\Router\Matcher\StringMatcher;
@@ -15,12 +16,19 @@ return [
                     ],
                     'Add store' => [
                         \App\Bot\MainBot\Workflow\AddStore\AddStoreWorkflowFactory::SERVICE_NAME,
+                    ],
+                    'Stores' => [
+                        \App\Bot\MainBot\Middleware\String\StoresMiddleware::class,
                     ]
                 ],
                 CommandMatcher::SECTION => [
                     'start' => [
+                        CancelWorkflowMiddleware::class,
                         \App\Bot\MainBot\Middleware\Command\StartCommand::class,
                         \App\Bot\MainBot\Middleware\MainKeyboardMiddleware::class,
+                    ],
+                    'cancel' => [
+                        CancelWorkflowMiddleware::class,
                     ]
                 ],
                 InlineQueryMatcher::SECTION => [
@@ -29,6 +37,9 @@ return [
                     ],
                     'switch_language' => [
                         \App\Bot\MainBot\Middleware\CallbackQuery\SwitchLanguageMiddleware::class,
+                    ],
+                    'store_delete' => [
+                        \App\Bot\MainBot\Middleware\CallbackQuery\DeleteStoreMiddleware::class,
                     ]
                 ]
             ],

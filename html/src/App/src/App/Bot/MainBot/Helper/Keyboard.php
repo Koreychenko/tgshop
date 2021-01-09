@@ -20,7 +20,7 @@ class Keyboard
 
         $row = (new ReplyKeyboardRow())
             ->addButton(new KeyboardButton(Emoji::CHARACTER_CONVENIENCE_STORE . ' ' . 'Stores'))
-            ->addButton(new KeyboardButton(Emoji::CHARACTER_GEAR . ' ' . 'Settings'));
+            ->addButton(new KeyboardButton('⚙' . ' ' . 'Settings'));
         $keyboard->addRow($row);
 
         $row = (new ReplyKeyboardRow())

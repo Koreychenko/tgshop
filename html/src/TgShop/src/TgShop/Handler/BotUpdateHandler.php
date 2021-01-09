@@ -14,7 +14,6 @@ use TgShop\BotProviderInterface;
 use TgShop\Dto\Update;
 use TgShop\Exception\InvalidTokenException;
 use TgShop\Middleware\TelegramRequest;
-use Throwable;
 
 class BotUpdateHandler implements RequestHandlerInterface
 {

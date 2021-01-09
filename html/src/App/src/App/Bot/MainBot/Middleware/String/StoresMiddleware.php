@@ -32,6 +32,8 @@ class StoresMiddleware implements MiddlewareInterface
             $message = new SendMessage($chat->getId(), 'You have no stores yet.');
 
             $telegramResponse->addDefaultBotCommand($message);
+
+            return;
         }
 
         $message = new SendMessage($chat->getId(), 'Your stores:');

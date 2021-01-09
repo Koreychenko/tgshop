@@ -13,7 +13,7 @@ final class HttpClientFactory
         $client = new Client(
             [
                 'base_uri' => 'https://api.telegram.org',
-                'timeout'  => 2.0,
+                'timeout'  => 5.0,
             ]
         );
 

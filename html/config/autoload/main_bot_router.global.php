@@ -40,6 +40,9 @@ return [
                     ],
                     'store_delete' => [
                         \App\Bot\MainBot\Middleware\CallbackQuery\DeleteStoreMiddleware::class,
+                    ],
+                    'store_add_token' => [
+                        \App\Bot\MainBot\Workflow\AddStoreToken\AddStoreTokenWorkflowFactory::SERVICE_NAME,
                     ]
                 ]
             ],

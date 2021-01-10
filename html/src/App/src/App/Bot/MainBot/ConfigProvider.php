@@ -22,6 +22,9 @@ use App\Bot\MainBot\Router\RouterFactory;
 use App\Bot\MainBot\Workflow\AddStore\AddStoreNameStep;
 use App\Bot\MainBot\Workflow\AddStore\AddStoreNameStepFactory;
 use App\Bot\MainBot\Workflow\AddStore\AddStoreWorkflowFactory;
+use App\Bot\MainBot\Workflow\AddStoreToken\AddStoreTokenStep;
+use App\Bot\MainBot\Workflow\AddStoreToken\AddStoreTokenStepFactory;
+use App\Bot\MainBot\Workflow\AddStoreToken\AddStoreTokenWorkflowFactory;
 use TgShop\Cli\SendMessageCommand;
 use TgShop\Cli\SetWebhookCommand;
 
@@ -47,18 +50,20 @@ class ConfigProvider
                 StoresMiddleware::class,
             ],
             'factories'  => [
-                SetWebhookCommand::class                => SetWebhookCommandFactory::class,
-                SendMessageCommand::class               => SendMessageCommandFactory::class,
-                BotProvider::class                      => BotProviderFactory::class,
-                BotAppFactory::SERVICE_NAME             => BotAppFactory::class,
-                RouterFactory::SERVICE_NAME             => RouterFactory::class,
-                RouteConfigurationFactory::SERVICE_NAME => RouteConfigurationFactory::class,
-                UpdateHandlerFactory::SERVICE_NAME      => UpdateHandlerFactory::class,
-                CheckTokenMiddleware::class             => CheckTokenMiddlewareFactory::class,
-                RouterMiddlewareFactory::SERVICE_NAME   => RouterMiddlewareFactory::class,
-                AddStoreWorkflowFactory::SERVICE_NAME   => AddStoreWorkflowFactory::class,
-                AddStoreNameStep::class                 => AddStoreNameStepFactory::class,
-                DeleteStoreMiddleware::class            => DeleteStoreMiddlewareFactory::class,
+                SetWebhookCommand::class                   => SetWebhookCommandFactory::class,
+                SendMessageCommand::class                  => SendMessageCommandFactory::class,
+                BotProvider::class                         => BotProviderFactory::class,
+                BotAppFactory::SERVICE_NAME                => BotAppFactory::class,
+                RouterFactory::SERVICE_NAME                => RouterFactory::class,
+                RouteConfigurationFactory::SERVICE_NAME    => RouteConfigurationFactory::class,
+                UpdateHandlerFactory::SERVICE_NAME         => UpdateHandlerFactory::class,
+                CheckTokenMiddleware::class                => CheckTokenMiddlewareFactory::class,
+                RouterMiddlewareFactory::SERVICE_NAME      => RouterMiddlewareFactory::class,
+                AddStoreWorkflowFactory::SERVICE_NAME      => AddStoreWorkflowFactory::class,
+                AddStoreNameStep::class                    => AddStoreNameStepFactory::class,
+                DeleteStoreMiddleware::class               => DeleteStoreMiddlewareFactory::class,
+                AddStoreTokenStep::class                   => AddStoreTokenStepFactory::class,
+                AddStoreTokenWorkflowFactory::SERVICE_NAME => AddStoreTokenWorkflowFactory::class,
             ],
             'cli'        => [
             ],

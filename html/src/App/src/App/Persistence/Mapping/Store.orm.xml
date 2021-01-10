@@ -21,6 +21,7 @@
         <many-to-one field="owner" target-entity="App\Entity\User">
             <join-column name="owner_id" referenced-column-name="id" />
         </many-to-one>
+        <one-to-many field="storeTokens" target-entity="App\Entity\StoreToken" mapped-by="store" />
         <field name="createdAt" type="datetime" column="created_at" nullable="false" />
         <field name="updatedAt" type="datetime" column="updated_at" nullable="false" />
     </entity>

@@ -20,7 +20,7 @@ class Store
     private DateTime $updatedAt;
 
     /** @var StoreToken[] */
-    private $storeToken;
+    private $storeTokens;
 
     public function getId(): int
     {
@@ -62,9 +62,9 @@ class Store
         $this->createdAt = $createdAt;
     }
 
-    public function getStoreToken(): array
+    public function getStoreTokens(): array
     {
-        return $this->storeToken;
+        return $this->storeTokens;
     }
 
     public function getUpdatedAt(): DateTime
@@ -77,14 +77,14 @@ class Store
         $this->updatedAt = $updatedAt;
     }
 
-    public function setStoreToken(array $storeToken): void
+    public function setStoreTokens(array $storeTokens): void
     {
-        $this->storeToken = $storeToken;
+        $this->storeTokens = $storeTokens;
     }
 
     public function addStoreToken(StoreToken $storeToken): void
     {
-        $this->storeToken[] = $storeToken;
+        $this->storeTokens[] = $storeToken;
     }
 
     public function setOwner(User $owner): void

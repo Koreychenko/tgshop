@@ -9,11 +9,15 @@ interface StateInterface
 
     public function getStep(): string;
 
-    public function getParameters(): ?object;
+    public function getParameters(): ?array;
 
     public function setStep(string $stepName): void;
 
     public function setWorkflow(string $stepName): void;
 
-    public function setParameters(object $parameters): void;
+    public function setParameters(array $parameters): void;
+
+    public function addParameter(string $name, $value): void;
+
+    public function getParameter(string $name);
 }

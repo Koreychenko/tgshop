@@ -5,6 +5,8 @@ namespace App\Entity;
 
 class StoreToken
 {
+    private int    $id;
+
     private int    $storeId;
 
     private string $botToken;
@@ -12,6 +14,11 @@ class StoreToken
     private string $accessToken;
 
     private Store  $store;
+
+    public function getStore(): Store
+    {
+        return $this->store;
+    }
 
     public function getStoreId(): int
     {
@@ -41,5 +48,10 @@ class StoreToken
     public function setAccessToken(string $accessToken): void
     {
         $this->accessToken = $accessToken;
+    }
+
+    public function setStore(Store $store): void
+    {
+        $this->store = $store;
     }
 }

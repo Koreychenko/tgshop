@@ -19,7 +19,7 @@ class State implements StateInterface
 
     private string $workflow;
 
-    private ?object $parameters;
+    private ?array $parameters;
 
     public function getId(): int
     {
@@ -81,13 +81,27 @@ class State implements StateInterface
         $this->workflow = $workflow;
     }
 
-    public function getParameters(): ?object
+    public function getParameters(): ?array
     {
         return $this->parameters;
     }
 
-    public function setParameters(object $parameters): void
+    public function setParameters(array $parameters): void
     {
         $this->parameters = $parameters;
+    }
+
+    public function addParameter(string $name, $value): void
+    {
+        $this->parameters[$name] = $value;
+    }
+
+    public function getParameter(string $name)
+    {
+        if (!array_key_exists($name, $this->parameters)) {
+            return null;
+        }
+
+        return $this->parameters[$name];
     }
 }

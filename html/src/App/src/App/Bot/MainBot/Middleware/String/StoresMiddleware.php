@@ -52,6 +52,14 @@ class StoresMiddleware implements MiddlewareInterface
                     )
             );
 
+            $keyboard->addRow(
+                (new InlineKeyboardRow())
+                    ->addButton(
+                        (new InlineKeyboardButton(Emoji::CHARACTER_PLUS . ' ' . 'Add token'))
+                            ->setCallbackData('store_add_token?id=' . $store->getId())
+                    )
+            );
+
             $message->setReplyMarkup($keyboard);
 
             $telegramResponse->addDefaultBotCommand($message);

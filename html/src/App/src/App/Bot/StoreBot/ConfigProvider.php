@@ -7,6 +7,8 @@ use App\Bot\StoreBot\Http\Handler\UpdateHandlerFactory;
 use App\Bot\StoreBot\Middleware\RouterMiddlewareFactory;
 use App\Bot\StoreBot\Router\RouteConfigurationFactory;
 use App\Bot\StoreBot\Router\RouterFactory;
+use App\Bot\StoreBot\Service\SetWebhookService;
+use App\Bot\StoreBot\Service\SetWebhookServiceFactory;
 
 class ConfigProvider
 {
@@ -29,8 +31,9 @@ class ConfigProvider
                 RouterFactory::SERVICE_NAME             => RouterFactory::class,
                 BotProvider::class                      => BotProviderFactory::class,
                 RouterMiddlewareFactory::SERVICE_NAME   => RouterMiddlewareFactory::class,
+                SetWebhookService::class                => SetWebhookServiceFactory::class,
             ],
-            'cli' => [
+            'cli'        => [
             ],
         ];
     }

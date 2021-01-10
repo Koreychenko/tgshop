@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Bot\StoreBot\Middleware;
 
-use App\Bot\MainBot\Router\RouterFactory;
+use App\Bot\StoreBot\Router\RouterFactory;
 use Psr\Container\ContainerInterface;
 use TgShop\Middleware\RouterMiddleware;
 

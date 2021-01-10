@@ -18,12 +18,12 @@ class BotProvider implements BotProviderInterface
 
     public function getBot(string $id): ?Bot
     {
-        $bot = $this->botRepository->getStoreTokenByAccessToken($id);
+        $storeToken = $this->botRepository->getStoreTokenByAccessToken($id);
 
-        if (!$bot) {
+        if (!$storeToken) {
             return null;
         }
 
-        return new Bot($id, $bot->getBotToken());
+        return new Bot($id, $storeToken->getBotToken());
     }
 }

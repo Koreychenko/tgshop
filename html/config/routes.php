@@ -33,6 +33,7 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     ]);
 
     $app->post('/update/store/:token', [
+        \App\Bot\MainBot\Http\Middleware\RequestSaverMiddleware::class,
         \App\Bot\StoreBot\Http\Handler\UpdateHandlerFactory::SERVICE_NAME,
     ]);
 };

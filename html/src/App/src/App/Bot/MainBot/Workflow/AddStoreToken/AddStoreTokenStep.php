@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Bot\MainBot\Workflow\AddStoreToken;
 
 use App\Bot\Common\Repository\StoreTokenRepositoryInterface;
+use App\Bot\StoreBot\Service\SetWebhookService;
 use InvalidArgumentException;
 use TgShop\Command\SendMessage;
 use TgShop\Dto\Chat;
@@ -18,9 +19,12 @@ class AddStoreTokenStep extends WorkflowStep
 {
     protected StoreTokenRepositoryInterface $storeTokenRepository;
 
-    public function __construct(StoreTokenRepositoryInterface $storeTokenRepository)
+    protected SetWebhookService $setWebhookService;
+
+    public function __construct(StoreTokenRepositoryInterface $storeTokenRepository, SetWebhookService $setWebhookService)
     {
         $this->storeTokenRepository = $storeTokenRepository;
+        $this->setWebhookService    = $setWebhookService;
     }
 
     public function validate(TelegramRequestInterface $telegramRequest, TelegramResponseInterface $telegramResponse)
@@ -68,7 +72,9 @@ class AddStoreTokenStep extends WorkflowStep
 
         $storeId = (int) $state->getParameter('id');
 
-        $this->storeTokenRepository->addStoreToken($storeId, $botToken, $accessToken);
+        $storeToken = $this->storeTokenRepository->addStoreToken($storeId, $botToken, $accessToken);
+
+        $this->setWebhookService->set($storeToken);
     }
 
     public function afterStep(TelegramRequestInterface $telegramRequest, TelegramResponseInterface $telegramResponse)

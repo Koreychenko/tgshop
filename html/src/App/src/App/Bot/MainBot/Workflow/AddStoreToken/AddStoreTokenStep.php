@@ -7,12 +7,9 @@ use App\Bot\Common\Repository\StoreTokenRepositoryInterface;
 use App\Bot\StoreBot\Service\SetWebhookService;
 use InvalidArgumentException;
 use TgShop\Command\SendMessage;
-use TgShop\Dto\Chat;
-use TgShop\Middleware\ChatExtractorMiddleware;
 use TgShop\Middleware\TelegramRequestInterface;
 use TgShop\Middleware\TelegramResponseInterface;
 use TgShop\State\StateInterface;
-use TgShop\Workflow\WorkflowHandler;
 use TgShop\Workflow\WorkflowStep;
 
 class AddStoreTokenStep extends WorkflowStep
@@ -40,11 +37,10 @@ class AddStoreTokenStep extends WorkflowStep
 
     public function beforeStep(TelegramRequestInterface $telegramRequest, TelegramResponseInterface $telegramResponse)
     {
-        /** @var Chat $chat */
-        $chat = $telegramRequest->getArgument(ChatExtractorMiddleware::ARGUMENT_CURRENT_CHAT);
+        $chat = $this->getDefaultChat($telegramRequest);
 
         /** @var StateInterface $state */
-        $state = $telegramRequest->getArgument(WorkflowHandler::ARGUMENT_CURRENT_STATE);
+        $state = $this->getState($telegramRequest);
 
         $storeId = $telegramRequest->getParameter('id');
 
@@ -67,8 +63,7 @@ class AddStoreTokenStep extends WorkflowStep
         $botToken = $telegramRequest->getUpdate()->getMessage()->getText();
         $accessToken = bin2hex(random_bytes(32));
 
-        /** @var StateInterface $state */
-        $state = $telegramRequest->getArgument(WorkflowHandler::ARGUMENT_CURRENT_STATE);
+        $state = $this->getState($telegramRequest);
 
         $storeId = (int) $state->getParameter('id');
 
@@ -79,8 +74,7 @@ class AddStoreTokenStep extends WorkflowStep
 
     public function afterStep(TelegramRequestInterface $telegramRequest, TelegramResponseInterface $telegramResponse)
     {
-        /** @var Chat $chat */
-        $chat = $telegramRequest->getArgument(ChatExtractorMiddleware::ARGUMENT_CURRENT_CHAT);
+        $chat = $this->getDefaultChat($telegramRequest);
 
         $telegramResponse->addDefaultBotCommand(
             new SendMessage(

@@ -6,15 +6,10 @@ namespace App\Bot\MainBot\Workflow\UploadPriceList;
 
 use InvalidArgumentException;
 use TgShop\BotApp;
-use TgShop\Command\GetFile;
 use TgShop\Command\SendMessage;
-use TgShop\Dto\Chat;
-use TgShop\Middleware\ChatExtractorMiddleware;
 use TgShop\Middleware\TelegramRequestInterface;
 use TgShop\Middleware\TelegramResponseInterface;
 use TgShop\Service\DownloadFileService;
-use TgShop\State\StateInterface;
-use TgShop\Workflow\WorkflowHandler;
 use TgShop\Workflow\WorkflowStep;
 
 class UploadPriceStep extends WorkflowStep
@@ -41,8 +36,7 @@ class UploadPriceStep extends WorkflowStep
 
     public function beforeStep(TelegramRequestInterface $telegramRequest, TelegramResponseInterface $telegramResponse)
     {
-        /** @var Chat $chat */
-        $chat = $telegramRequest->getArgument(ChatExtractorMiddleware::ARGUMENT_CURRENT_CHAT);
+        $chat = $this->getDefaultChat($telegramRequest);
 
         $telegramResponse->addDefaultBotCommand(
             new SendMessage(
@@ -51,8 +45,7 @@ class UploadPriceStep extends WorkflowStep
             )
         );
 
-        /** @var StateInterface $state */
-        $state = $telegramRequest->getArgument(WorkflowHandler::ARGUMENT_CURRENT_STATE);
+        $state = $this->getState($telegramRequest);
 
         $storeId = $telegramRequest->getParameter('id');
 
@@ -71,8 +64,7 @@ class UploadPriceStep extends WorkflowStep
 
         $file = $this->downloadFileService->download($document->getFileId(), $bot);
 
-        /** @var Chat $chat */
-        $chat = $telegramRequest->getArgument(ChatExtractorMiddleware::ARGUMENT_CURRENT_CHAT);
+        $chat = $this->getDefaultChat($telegramRequest);
 
         $telegramResponse->addDefaultBotCommand(
             new SendMessage(
@@ -85,8 +77,7 @@ class UploadPriceStep extends WorkflowStep
 
     public function afterStep(TelegramRequestInterface $telegramRequest, TelegramResponseInterface $telegramResponse)
     {
-        /** @var Chat $chat */
-        $chat = $telegramRequest->getArgument(ChatExtractorMiddleware::ARGUMENT_CURRENT_CHAT);
+        $chat = $this->getDefaultChat($telegramRequest);
 
         $telegramResponse->addDefaultBotCommand(
             new SendMessage(

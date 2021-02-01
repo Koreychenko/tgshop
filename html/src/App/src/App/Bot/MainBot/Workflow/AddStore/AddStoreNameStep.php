@@ -24,8 +24,7 @@ class AddStoreNameStep extends WorkflowStep
 
     public function afterStep(TelegramRequestInterface $telegramRequest, TelegramResponseInterface $telegramResponse)
     {
-        /** @var Chat $chat */
-        $chat = $telegramRequest->getArgument(ChatExtractorMiddleware::ARGUMENT_CURRENT_CHAT);
+        $chat = $this->getDefaultChat($telegramRequest);
 
         $telegramResponse->addDefaultBotCommand(new SendMessage($chat->getId(),
                                                                 'Congrats! Your store has been created!'));
@@ -33,8 +32,7 @@ class AddStoreNameStep extends WorkflowStep
 
     public function beforeStep(TelegramRequestInterface $telegramRequest, TelegramResponseInterface $telegramResponse)
     {
-        /** @var Chat $chat */
-        $chat = $telegramRequest->getArgument(ChatExtractorMiddleware::ARGUMENT_CURRENT_CHAT);
+        $chat = $this->getDefaultChat($telegramRequest);
 
         $telegramResponse->addDefaultBotCommand(new SendMessage($chat->getId(), 'Enter store name'));
     }

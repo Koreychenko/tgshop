@@ -62,7 +62,7 @@ class Store
         $this->createdAt = $createdAt;
     }
 
-    public function getStoreTokens(): array
+    public function getStoreTokens()
     {
         return $this->storeTokens;
     }
@@ -77,7 +77,7 @@ class Store
         $this->updatedAt = $updatedAt;
     }
 
-    public function setStoreTokens(array $storeTokens): void
+    public function setStoreTokens($storeTokens): void
     {
         $this->storeTokens = $storeTokens;
     }

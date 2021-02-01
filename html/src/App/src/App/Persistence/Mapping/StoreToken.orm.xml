@@ -19,6 +19,11 @@
 
         <field name="botToken" column="bot_token"/>
         <field name="accessToken" column="access_token"/>
+        <field name="active" type="boolean" column="active">
+            <options>
+                <option name="default">true</option>
+            </options>
+        </field>
 
         <many-to-one field="store" target-entity="App\Entity\Store">
             <join-column name="store_id"/>

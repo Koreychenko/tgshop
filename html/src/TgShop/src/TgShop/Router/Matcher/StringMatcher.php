@@ -22,6 +22,10 @@ class StringMatcher implements RouterMatcherInterface
             return null;
         }
 
+        if (!$update->getMessage()->getText()) {
+            return null;
+        }
+
         return $routeConfiguration->getSectionRoutes(static::SECTION,
                                                      trim($this->remove_emoji($update->getMessage()->getText())));
     }

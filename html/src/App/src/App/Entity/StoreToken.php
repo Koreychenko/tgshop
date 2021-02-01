@@ -13,7 +13,14 @@ class StoreToken
 
     private string $accessToken;
 
+    private bool $active;
+
     private Store  $store;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
     public function getStore(): Store
     {
@@ -53,5 +60,15 @@ class StoreToken
     public function setStore(Store $store): void
     {
         $this->store = $store;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
     }
 }

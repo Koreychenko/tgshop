@@ -11,6 +11,8 @@ use App\Bot\MainBot\Http\Middleware\CheckTokenMiddlewareFactory;
 use App\Bot\MainBot\Middleware\CallbackQuery\DeleteStoreMiddleware;
 use App\Bot\MainBot\Middleware\CallbackQuery\DeleteStoreMiddlewareFactory;
 use App\Bot\MainBot\Middleware\CallbackQuery\SettingsMenuMiddleware;
+use App\Bot\MainBot\Middleware\CallbackQuery\StoreTokensList;
+use App\Bot\MainBot\Middleware\CallbackQuery\StoreTokensListFactory;
 use App\Bot\MainBot\Middleware\CallbackQuery\SwitchLanguageMiddleware;
 use App\Bot\MainBot\Middleware\Command\StartCommand;
 use App\Bot\MainBot\Middleware\MainKeyboardMiddleware;
@@ -25,6 +27,9 @@ use App\Bot\MainBot\Workflow\AddStore\AddStoreWorkflowFactory;
 use App\Bot\MainBot\Workflow\AddStoreToken\AddStoreTokenStep;
 use App\Bot\MainBot\Workflow\AddStoreToken\AddStoreTokenStepFactory;
 use App\Bot\MainBot\Workflow\AddStoreToken\AddStoreTokenWorkflowFactory;
+use App\Bot\MainBot\Workflow\UploadPriceList\UploadPriceStep;
+use App\Bot\MainBot\Workflow\UploadPriceList\UploadPriceStepFactory;
+use App\Bot\MainBot\Workflow\UploadPriceList\UploadPriceWorkflowFactory;
 use TgShop\Cli\SendMessageCommand;
 use TgShop\Cli\SetWebhookCommand;
 
@@ -64,6 +69,9 @@ class ConfigProvider
                 DeleteStoreMiddleware::class               => DeleteStoreMiddlewareFactory::class,
                 AddStoreTokenStep::class                   => AddStoreTokenStepFactory::class,
                 AddStoreTokenWorkflowFactory::SERVICE_NAME => AddStoreTokenWorkflowFactory::class,
+                StoreTokensList::class                     => StoreTokensListFactory::class,
+                UploadPriceStep::class                     => UploadPriceStepFactory::class,
+                UploadPriceWorkflowFactory::SERVICE_NAME   => UploadPriceWorkflowFactory::class,
             ],
             'cli'        => [
             ],

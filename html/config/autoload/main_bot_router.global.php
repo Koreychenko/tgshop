@@ -43,6 +43,12 @@ return [
                     ],
                     'store_add_token' => [
                         \App\Bot\MainBot\Workflow\AddStoreToken\AddStoreTokenWorkflowFactory::SERVICE_NAME,
+                    ],
+                    'store_tokens' => [
+                        \App\Bot\MainBot\Middleware\CallbackQuery\StoreTokensList::class,
+                    ],
+                    'upload_price' => [
+                        \App\Bot\MainBot\Workflow\UploadPriceList\UploadPriceWorkflowFactory::SERVICE_NAME,
                     ]
                 ]
             ],

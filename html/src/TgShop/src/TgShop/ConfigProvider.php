@@ -17,6 +17,8 @@ use TgShop\Router\Matcher\CommandMatcher;
 use TgShop\Router\Matcher\InlineQueryMatcher;
 use TgShop\Router\Matcher\StateMatcher;
 use TgShop\Router\Matcher\StringMatcher;
+use TgShop\Service\DownloadFileService;
+use TgShop\Service\DownloadFileServiceFactory;
 use TgShop\Transport\HttpClient;
 use TgShop\Transport\HttpClientFactory;
 use TgShop\Transport\ImmediateSender;
@@ -49,6 +51,7 @@ class ConfigProvider
                 ErrorHandlerMiddleware::class   => ErrorHandlerMiddlewareFactory::class,
                 StateExtractorMiddleware::class => StateExtractorMiddlewareFactory::class,
                 CancelWorkflowMiddleware::class => CancelWorkflowMiddlewareFactory::class,
+                DownloadFileService::class      => DownloadFileServiceFactory::class,
             ],
         ];
     }

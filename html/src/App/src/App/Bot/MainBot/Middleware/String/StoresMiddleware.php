@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Bot\MainBot\Middleware\String;
 
+use App\Bot\MainBot\Helper\StoreKeyboard;
 use App\Entity\User;
 use Spatie\Emoji\Emoji;
 use TgShop\Command\Element\InlineKeyboardButton;
@@ -43,24 +44,7 @@ class StoresMiddleware implements MiddlewareInterface
         {
             $message = new SendMessage($chat->getId(), $store->getName());
 
-            $keyboard = new InlineKeyboardMarkup();
-            $keyboard->addRow(
-                (new InlineKeyboardRow())
-                    ->addButton(
-                        (new InlineKeyboardButton(Emoji::CHARACTER_CROSS_MARK . ' ' . 'Delete'))
-                            ->setCallbackData('store_delete?id=' . $store->getId())
-                    )
-            );
-
-            $keyboard->addRow(
-                (new InlineKeyboardRow())
-                    ->addButton(
-                        (new InlineKeyboardButton(Emoji::CHARACTER_PLUS . ' ' . 'Add token'))
-                            ->setCallbackData('store_add_token?id=' . $store->getId())
-                    )
-            );
-
-            $message->setReplyMarkup($keyboard);
+            $message->setReplyMarkup(StoreKeyboard::getKeyboard($store->getId()));
 
             $telegramResponse->addDefaultBotCommand($message);
         }

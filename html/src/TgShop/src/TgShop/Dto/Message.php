@@ -20,6 +20,13 @@ class Message
     /** @var MessageEntity[] */
     protected ?array    $entities = null;
 
+    protected ?Document $document = null;
+
+    public function getDocument(): ?Document
+    {
+        return $this->document;
+    }
+
     /**
      * @return MessageEntity[]
      */
@@ -103,6 +110,10 @@ class Message
             $message->setFrom(User::createFromArray($array['from']));
         }
 
+        if (array_key_exists('document', $array)) {
+            $message->setDocument(Document::createFromArray($array['document']));
+        }
+
         if (array_key_exists('entities', $array)) {
             foreach ($array['entities'] as $entity) {
                 $message->addEntity(MessageEntity::createFromArray($entity));
@@ -110,5 +121,10 @@ class Message
         }
 
         return $message;
+    }
+
+    public function setDocument(Document $document): void
+    {
+        $this->document = $document;
     }
 }
